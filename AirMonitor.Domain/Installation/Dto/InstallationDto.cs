@@ -2,7 +2,7 @@
 
 namespace AirMonitor.Domain.Installation.Dto
 {
-    public readonly struct InstallationDto : IEquatable<InstallationDto>
+    public class InstallationDto : IEquatable<InstallationDto>
     {
         #region Fields
 
@@ -44,15 +44,39 @@ namespace AirMonitor.Domain.Installation.Dto
         #region Equals&HashCode
 
         public bool Equals(InstallationDto other)
-            => _id == other._id
-            && _externalId == other._externalId
-            && _isAirly == other._isAirly
-            && Equals(_location, other._location)
-            && Equals(_address, other._address)
-            && Equals(_sponsor, other._sponsor);
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return _id == other._id
+                && _externalId == other._externalId
+                && _isAirly == other._isAirly
+                && Equals(_location, other._location)
+                && Equals(_address, other._address)
+                && Equals(_sponsor, other._sponsor);
+        }
 
         public override bool Equals(object obj)
-            => obj is InstallationDto other && Equals(other);
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            return Equals((InstallationDto) obj);
+        }
 
         public override int GetHashCode()
             => HashCode.Combine(_id, _externalId, _isAirly, _location, _address, _sponsor);
