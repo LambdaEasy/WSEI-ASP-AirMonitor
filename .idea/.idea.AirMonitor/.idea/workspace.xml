@@ -14,11 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c7d6318-6c8f-46f6-95ec-2aedb03e516f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,11 +33,11 @@
       <list>
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Class1.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Web/T.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Web/T.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
       </list>
     </option>
   </component>
@@ -52,6 +52,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/sdk" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -98,7 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608979826935</updated>
       <workItem from="1608979834459" duration="542000" />
-      <workItem from="1608980491388" duration="1001000" />
+      <workItem from="1608980491388" duration="1878000" />
     </task>
     <servers />
   </component>
@@ -131,5 +137,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1608979901428" />
+    <state x="670" y="198" key="RiderGenerateDialog" timestamp="1608982185615">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="670" y="198" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608982185615" />
   </component>
 </project>
