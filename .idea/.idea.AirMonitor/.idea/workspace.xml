@@ -14,9 +14,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c7d6318-6c8f-46f6-95ec-2aedb03e516f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608979826935</updated>
       <workItem from="1608979834459" duration="542000" />
-      <workItem from="1608980491388" duration="7932000" />
+      <workItem from="1608980491388" duration="8646000" />
     </task>
     <servers />
   </component>
