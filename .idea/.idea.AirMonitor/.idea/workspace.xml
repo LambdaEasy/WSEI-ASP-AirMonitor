@@ -14,9 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c7d6318-6c8f-46f6-95ec-2aedb03e516f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.Web/AirMonitor.Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Web/AirMonitor.Web.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.sln" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +32,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Class1.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Web/T.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Web/T.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
       </list>
     </option>
   </component>
@@ -96,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608979826935</updated>
       <workItem from="1608979834459" duration="542000" />
-      <workItem from="1608980491388" duration="706000" />
+      <workItem from="1608980491388" duration="1001000" />
     </task>
     <servers />
   </component>
