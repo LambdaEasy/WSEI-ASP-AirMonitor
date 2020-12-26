@@ -35,9 +35,9 @@
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Web/T.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
-        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608979826935</updated>
       <workItem from="1608979834459" duration="542000" />
-      <workItem from="1608980491388" duration="1878000" />
+      <workItem from="1608980491388" duration="3514000" />
     </task>
     <servers />
   </component>
@@ -137,9 +137,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1608979901428" />
-    <state x="670" y="198" key="RiderGenerateDialog" timestamp="1608982185615">
+    <state x="670" y="198" key="RiderGenerateDialog" timestamp="1608983684755">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="670" y="198" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608982185615" />
+    <state x="670" y="198" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608983684755" />
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1608983665891">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608983665891" />
   </component>
 </project>
