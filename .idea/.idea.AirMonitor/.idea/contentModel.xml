@@ -10,6 +10,12 @@
         <e p="AirMonitor.Domain.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Installation" t="Include">
+          <e p="Dto" t="Include">
+            <e p="InstallationAddressDto.cs" t="Include" />
+            <e p="InstallationDto.cs" t="Include" />
+            <e p="InstallationLocationDto.cs" t="Include" />
+            <e p="InstallationSponsorDto.cs" t="Include" />
+          </e>
           <e p="Installation.cs" t="Include" />
           <e p="InstallationAddress.cs" t="Include" />
           <e p="InstallationLocation.cs" t="Include" />

@@ -17,10 +17,10 @@ namespace AirMonitor.Domain.Installation
         #region Constructors
 
         public InstallationSponsor(long? installationId,
-            string name,
-            string description,
-            string logoUri,
-            string linkUri)
+                                   string name,
+                                   string description,
+                                   string logoUri,
+                                   string linkUri)
         {
             InstallationId = installationId;
             Name = name;

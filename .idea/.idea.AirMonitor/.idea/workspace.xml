@@ -14,10 +14,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c7d6318-6c8f-46f6-95ec-2aedb03e516f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AirMonitor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +35,14 @@
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationAddress.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationLocation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Installation.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationDto.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Domain/Installation.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Domain/InstallationLocation.cs" />
         <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/InstallationSponsor.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Dto/InstallationLocationDto.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Dto/InstallationSponsorDto.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Dto/InstallationAddressDto.cs" />
+        <option value="$PROJECT_DIR$/AirMonitor.Domain/Installation/Dto/InstallationDto.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608979826935</updated>
       <workItem from="1608979834459" duration="542000" />
-      <workItem from="1608980491388" duration="3514000" />
+      <workItem from="1608980491388" duration="7932000" />
     </task>
     <servers />
   </component>
@@ -137,10 +142,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1608979901428" />
-    <state x="670" y="198" key="RiderGenerateDialog" timestamp="1608983684755">
+    <state x="670" y="198" key="RiderGenerateDialog" timestamp="1608989098791">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="670" y="198" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608983684755" />
+    <state x="670" y="198" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608989098791" />
     <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1608983665891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
