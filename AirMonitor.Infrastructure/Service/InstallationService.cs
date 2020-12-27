@@ -62,7 +62,7 @@ namespace AirMonitor.Infrastructure.Service
         public bool Delete(InstallationDeleteCommand command)
         {
             // TODO [log]
-            throw new System.NotImplementedException();
+            return _repository.DeleteById(command.Id);
         }
 
         public static class Factory
