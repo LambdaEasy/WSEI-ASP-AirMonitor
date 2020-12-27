@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Web", "AirMonito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Domain", "AirMonitor.Domain\AirMonitor.Domain.csproj", "{53B8437B-7D00-4314-B194-A9516ADAC904}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Core", "AirMonitor.Core\AirMonitor.Core.csproj", "{FDC638F2-F7D8-4A27-BB35-27F7968EE093}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{53B8437B-7D00-4314-B194-A9516ADAC904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B8437B-7D00-4314-B194-A9516ADAC904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B8437B-7D00-4314-B194-A9516ADAC904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC638F2-F7D8-4A27-BB35-27F7968EE093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC638F2-F7D8-4A27-BB35-27F7968EE093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC638F2-F7D8-4A27-BB35-27F7968EE093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC638F2-F7D8-4A27-BB35-27F7968EE093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

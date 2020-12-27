@@ -2,7 +2,7 @@ using System;
 
 namespace AirMonitor.Domain.Installation.Dto
 {
-    public readonly struct InstallationSponsorDto : IEquatable<InstallationSponsorDto>
+    public class InstallationSponsorDto : IEquatable<InstallationSponsorDto>
     {
         #region Fields
 
@@ -40,17 +40,43 @@ namespace AirMonitor.Domain.Installation.Dto
         #region Equals&HashCode
 
         public bool Equals(InstallationSponsorDto other)
-            => _installationId == other._installationId
-            && _name == other._name
-            && _description == other._description
-            && _logoUri == other._logoUri
-            && _linkUri == other._linkUri;
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return _installationId == other._installationId
+                && _name == other._name
+                && _description == other._description
+                && _logoUri == other._logoUri
+                && _linkUri == other._linkUri;
+        }
 
         public override bool Equals(object obj)
-            => obj is InstallationSponsorDto other && Equals(other);
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) 
+            {
+                return true;
+            }
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            return Equals((InstallationSponsorDto) obj);
+        }
 
         public override int GetHashCode()
-            => HashCode.Combine(_installationId, _name, _description, _logoUri, _linkUri);
+        {
+            return HashCode.Combine(_installationId, _name, _description, _logoUri, _linkUri);
+        }
 
         #endregion
 
