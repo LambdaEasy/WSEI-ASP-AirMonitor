@@ -3,6 +3,7 @@ namespace AirMonitor.Core.Installation
     public enum InstallationErrorCode
     {
         Unknown,
-        NotFound
+        NotFound,
+        Duplicate
     }
 }

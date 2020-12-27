@@ -20,7 +20,9 @@ namespace AirMonitor.Infrastructure.Service
         public Either<InstallationError, InstallationDto> CreateInstallation(InstallationCreateCommand command)
         {
             // TODO [log]
-            throw new System.NotImplementedException();
+            return _repository.TrySave(command.ToDomain())
+                              .Map(InstallationDto.FromDomain)
+                              .ToEither(InstallationError.DuplicateExternalId(command.ExternalId));
         }
 
         public Either<InstallationError, InstallationDto> GetById(long id)
