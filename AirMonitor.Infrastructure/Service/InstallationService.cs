@@ -50,7 +50,9 @@ namespace AirMonitor.Infrastructure.Service
         public HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
         {
             // TODO [log]
-            throw new System.NotImplementedException();
+            return _repository.FindAllByLocation(command.Latitude, command.Longitude, command.Radius)
+                              .Select(InstallationDto.FromDomain)
+                              .ToHashSet();
         }
 
         public Either<InstallationError, InstallationDto> Update(InstallationUpdateCommand command)
