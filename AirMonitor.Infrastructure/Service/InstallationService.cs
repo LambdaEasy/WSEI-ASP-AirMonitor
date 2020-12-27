@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 using AirMonitor.Core.Util.Flow;
@@ -18,36 +19,49 @@ namespace AirMonitor.Infrastructure.Service
 
         public Either<InstallationError, InstallationDto> CreateInstallation(InstallationCreateCommand command)
         {
+            // TODO [log]
             throw new System.NotImplementedException();
         }
 
         public Either<InstallationError, InstallationDto> GetById(long id)
         {
-            throw new System.NotImplementedException();
+            // TODO [log]
+            return _repository.FindById(id)
+                              .Map(InstallationDto.FromDomain)
+                              .ToEither(InstallationError.NotFoundById(id));
         }
 
         public Either<InstallationError, InstallationDto> GetByExternalId(long id)
         {
-            throw new System.NotImplementedException();
+            // TODO [log]
+            return _repository.FindByExternalId(id)
+                              .Map(InstallationDto.FromDomain)
+                              .ToEither(InstallationError.NotFoundByExternalId(id));
         }
 
         public HashSet<InstallationDto> GetAll()
         {
-            throw new System.NotImplementedException();
+            // TODO [log]
+            return _repository.FindAll()
+                              .Select(InstallationDto.FromDomain)
+                              .ToHashSet();
         }
 
         public HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
         {
+            // TODO [log]
             throw new System.NotImplementedException();
         }
 
         public Either<InstallationError, InstallationDto> Update(InstallationUpdateCommand command)
         {
+            // TODO [log]
             throw new System.NotImplementedException();
         }
 
         public bool Delete(InstallationDeleteCommand command)
         {
+            // TODO [log]
             throw new System.NotImplementedException();
         }
 
