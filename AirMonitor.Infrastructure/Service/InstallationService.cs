@@ -27,8 +27,8 @@ namespace AirMonitor.Infrastructure.Service
                 InstallationOperationType.CreateInstallation,
                 command,
                 () => _repository.TrySave(command.ToDomain())
-                                       .Map(InstallationDto.FromDomain)
-                                       .ToEither(InstallationError.DuplicateExternalId(command.ExternalId))
+                                 .Map(InstallationDto.FromDomain)
+                                 .ToEither(InstallationError.DuplicateExternalId(command.ExternalId))
             );
         }
 
@@ -40,8 +40,8 @@ namespace AirMonitor.Infrastructure.Service
                 InstallationOperationType.GetInstallationById,
                 id,
                 () => _repository.FindById(id)
-                                       .Map(InstallationDto.FromDomain)
-                                       .ToEither(InstallationError.NotFoundById(id))
+                                 .Map(InstallationDto.FromDomain)
+                                 .ToEither(InstallationError.NotFoundById(id))
             );
         }
 
@@ -53,8 +53,8 @@ namespace AirMonitor.Infrastructure.Service
                 InstallationOperationType.GetInstallationByExternalId,
                 id,
                 () => _repository.FindByExternalId(id)
-                                       .Map(InstallationDto.FromDomain)
-                                       .ToEither(InstallationError.NotFoundByExternalId(id))
+                                 .Map(InstallationDto.FromDomain)
+                                 .ToEither(InstallationError.NotFoundByExternalId(id))
             );
         }
 
@@ -66,8 +66,8 @@ namespace AirMonitor.Infrastructure.Service
                 InstallationOperationType.GetAllInstallations,
                 "none",
                 () => _repository.FindAll()
-                                       .Select(InstallationDto.FromDomain)
-                                       .ToHashSet()
+                                 .Select(InstallationDto.FromDomain)
+                                 .ToHashSet()
             );
         }
 
@@ -79,8 +79,8 @@ namespace AirMonitor.Infrastructure.Service
                 InstallationOperationType.GetAllInstallationsNearby,
                 command,
                 () => _repository.FindAllByLocation(command.Latitude, command.Longitude, command.Radius)
-                                       .Select(InstallationDto.FromDomain)
-                                       .ToHashSet()
+                                 .Select(InstallationDto.FromDomain)
+                                 .ToHashSet()
             );
         }
 
