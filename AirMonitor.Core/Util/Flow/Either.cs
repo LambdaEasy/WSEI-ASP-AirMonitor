@@ -40,6 +40,26 @@ namespace AirMonitor.Core.Util.Flow
         public Either<TL, TRight> MapLeft<TL>(Func<TL> mapper) where TL : class
             => IsLeft ? Left<TL, TRight>(mapper.Invoke()) : Right<TL, TRight>(_right);
 
+        public Either<TLeft, TRight> Peek(Action<TRight> action)
+        {
+            if (IsRight)
+            {
+                action.Invoke(_right);
+                return Right<TLeft, TRight>(_right);
+            }
+            return Left<TLeft, TRight>(_left);
+        }
+
+        public Either<TLeft, TRight> PeekLeft(Action<TLeft> action)
+        {
+            if (IsLeft)
+            {
+                action.Invoke(_left);
+                return Left<TLeft, TRight>(_left);
+            }
+            return Right<TLeft, TRight>(_right);
+        }
+
         #region StaticConstructors
 
         public static Either<TL, TR> Left<TL, TR>(TL left) where TL : class where TR : class
