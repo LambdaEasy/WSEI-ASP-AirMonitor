@@ -15,8 +15,13 @@ namespace AirMonitor.Core.Util.Flow
 
         public TValue Get => _value ?? throw new ArgumentException("Option value is null");
 
-        public Option<T> Map<T>(Func<T> mapper) where T : class
-            => IsEmpty ? Empty<T>() : Of(mapper.Invoke());
+        public Option<T> Map<T>(Func<TValue, T> mapper) where T : class
+            => IsEmpty ? Empty<T>() : Of(mapper.Invoke(_value));
+
+        public Either<TLeft, TValue> ToEither<TLeft>(TLeft left) where TLeft : class
+            => IsEmpty
+             ? Either<TLeft, TValue>.Left<TLeft, TValue>(left)
+             : Either<TLeft, TValue>.Right<TLeft, TValue>(_value);
 
         #region StaticConstructors
 

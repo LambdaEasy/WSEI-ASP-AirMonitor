@@ -6,6 +6,8 @@ namespace AirMonitor.Core.Installation
 
         private const InstallationErrorCode DefaultCode = InstallationErrorCode.Unknown;
         private const string DefaultMessage = "Unknown InstallationError occured.";
+        private const string NotFoundMessagePattern = "Installation not found by {0} = {1}.";
+        private const string DuplicateMessagePattern = "Installation already exists for {0} = {1}.";
 
         #endregion
 
@@ -34,7 +36,15 @@ namespace AirMonitor.Core.Installation
         public InstallationError UnknownError() 
             => new InstallationError(DefaultCode, DefaultMessage);
 
-        #endregion
+        public static InstallationError NotFoundById(long id)
+            => new InstallationError(InstallationErrorCode.NotFound, string.Format(NotFoundMessagePattern, "id", id));
+
+        public static InstallationError NotFoundByExternalId(long id)
+            => new InstallationError(InstallationErrorCode.NotFound, string.Format(NotFoundMessagePattern, "externalId", id));
         
+        public static InstallationError DuplicateExternalId(long externalId)
+            => new InstallationError(InstallationErrorCode.Duplicate, string.Format(DuplicateMessagePattern, "externalId", externalId));
+        
+        #endregion
     }
 }
