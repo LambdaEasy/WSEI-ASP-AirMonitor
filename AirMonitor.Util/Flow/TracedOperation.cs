@@ -1,5 +1,6 @@
 using System;
-using AirMonitor.Core.Util.Flow;
+using System.Threading.Tasks;
+using AirMonitor.Util.Flow;
 
 namespace AirMonitor.Infrastructure.Flow
 {
@@ -80,6 +81,39 @@ namespace AirMonitor.Infrastructure.Flow
             return success;
         }
         
+        #endregion
+
+        #region AsynchronizedInterceptors
+
+        public static Task<Either<TFailure, TSuccess>> CallAsync<TOperationType, TCommand, TFailure, TSuccess>(
+                string traceName,
+                TOperationType operationType,
+                TCommand command,
+                Func<Task<Either<TFailure, TSuccess>>> called)
+            where TOperationType : Enum
+            where TFailure : class
+            where TSuccess : class
+        {
+            DateTimeOffset beginDatetime = DateTimeOffset.Now;
+            // TODO log instead
+            Console.WriteLine($"{beginDatetime} INFO {traceName} : {operationType} operation started at {beginDatetime} with command = {command}.");
+            return called.Invoke()
+                         .ContinueWith(taskResult => taskResult
+                         .Result
+                         .PeekLeft(failure =>
+                         {
+                             // TODO log instead
+                             Console.WriteLine(
+                                 $"{DateTimeOffset.Now} WARN {traceName} : {operationType} operation finished after {CalculateExecTime(beginDatetime)} ms with failure = {failure}.");
+                         })
+                         .Peek(success =>
+                         {
+                             // TODO log instead
+                             Console.WriteLine(
+                                 $"{DateTimeOffset.Now} INFO {traceName} : {operationType} operation finished after {CalculateExecTime(beginDatetime)} ms with success = {success}.");
+                         }));
+        }
+
         #endregion
 
         #region HelperMethods

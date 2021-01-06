@@ -1,6 +1,6 @@
 using System;
 
-namespace AirMonitor.Core.Util.Flow
+namespace AirMonitor.Util.Flow
 {
     public class Either<TLeft, TRight> where TLeft : class
                                        where TRight : class

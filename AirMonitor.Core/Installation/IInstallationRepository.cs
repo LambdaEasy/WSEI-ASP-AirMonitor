@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AirMonitor.Core.Util.Flow;
+using AirMonitor.Util.Flow;
 using InstallationDomain = AirMonitor.Domain.Installation.Installation;
 
 namespace AirMonitor.Core.Installation
