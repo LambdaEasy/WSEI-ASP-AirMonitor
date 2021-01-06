@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using AirMonitor.Core.Installation.Command;
-using AirMonitor.Core.Util.Flow;
 using AirMonitor.Domain.Installation.Dto;
+using AirMonitor.Util.Flow;
 
 namespace AirMonitor.Core.Installation
 {
