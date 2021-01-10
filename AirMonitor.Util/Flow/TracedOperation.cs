@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using AirMonitor.Util.Flow;
 
-namespace AirMonitor.Infrastructure.Flow
+namespace AirMonitor.Util.Flow
 {
     public static class TracedOperation
     {

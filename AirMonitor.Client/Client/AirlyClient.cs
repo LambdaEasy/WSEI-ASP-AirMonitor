@@ -6,7 +6,6 @@ using AirMonitor.Client.Api;
 using AirMonitor.Client.Api.Request.Installation;
 using AirMonitor.Client.Api.Response.Installation;
 using AirMonitor.Client.Util;
-using AirMonitor.Infrastructure.Flow;
 using AirMonitor.Util.Flow;
 using Newtonsoft.Json;
 

@@ -4,7 +4,6 @@ using System.Linq;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 using AirMonitor.Domain.Installation.Dto;
-using AirMonitor.Infrastructure.Flow;
 using AirMonitor.Util.Flow;
 
 namespace AirMonitor.Infrastructure.Service
