@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Client", "AirMon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Util", "AirMonitor.Util\AirMonitor.Util.csproj", "{D7357A90-3D0D-470A-8208-D16661409DEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirMonitor.Persistence", "AirMonitor.Persistence\AirMonitor.Persistence.csproj", "{48AEC52E-F780-4AFC-9117-DD073E07FC49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{D7357A90-3D0D-470A-8208-D16661409DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7357A90-3D0D-470A-8208-D16661409DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7357A90-3D0D-470A-8208-D16661409DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AEC52E-F780-4AFC-9117-DD073E07FC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AEC52E-F780-4AFC-9117-DD073E07FC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AEC52E-F780-4AFC-9117-DD073E07FC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AEC52E-F780-4AFC-9117-DD073E07FC49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
