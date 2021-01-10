@@ -168,7 +168,8 @@ namespace AirMonitor.Core.Installation.Command
         public readonly struct InstallationCreateCommandSponsor
         {
             #region Fields
-            
+
+            private readonly long _id;
             private readonly string _name;
             private readonly string _description;
             private readonly string _logoUri;
@@ -178,8 +179,9 @@ namespace AirMonitor.Core.Installation.Command
 
             #region Constructors
 
-            private InstallationCreateCommandSponsor(string name, string description, string logoUri, string linkUri)
+            private InstallationCreateCommandSponsor(long id, string name, string description, string logoUri, string linkUri)
             {
+                _id = id;
                 _name = name;
                 _description = description;
                 _logoUri = logoUri;
@@ -197,15 +199,16 @@ namespace AirMonitor.Core.Installation.Command
                    ")";
             
             public InstallationSponsor ToDomain()
-                => InstallationSponsor.Create(_name, _description, _logoUri, _linkUri);
+                => InstallationSponsor.Create(_id, _name, _description, _logoUri, _linkUri);
 
             #region StaticConstructors
 
-            public static InstallationCreateCommandSponsor Create(string name,
+            public static InstallationCreateCommandSponsor Create(long id,
+                                                                  string name,
                                                                   string description,
                                                                   string logoUri,
                                                                   string linkUri)
-                => new InstallationCreateCommandSponsor(name, description, logoUri, linkUri);
+                => new InstallationCreateCommandSponsor(id, name, description, logoUri, linkUri);
 
             #endregion
         }

@@ -6,7 +6,7 @@ namespace AirMonitor.Domain.Installation
     {
         #region Fields
 
-        public long? InstallationId { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string LogoUri { get; set; }
@@ -16,13 +16,13 @@ namespace AirMonitor.Domain.Installation
 
         #region Constructors
 
-        public InstallationSponsor(long? installationId,
+        public InstallationSponsor(long id,
                                    string name,
                                    string description,
                                    string logoUri,
                                    string linkUri)
         {
-            InstallationId = installationId;
+            Id = id;
             Name = name;
             Description = description;
             LogoUri = logoUri;
@@ -39,12 +39,11 @@ namespace AirMonitor.Domain.Installation
             {
                 return false;
             }
-
             if (ReferenceEquals(this, other))
             {
                 return true;
             }
-            return InstallationId == other.InstallationId
+            return Id == other.Id
                 && Name == other.Name
                 && Description == other.Description
                 && LogoUri == other.LogoUri
@@ -70,18 +69,19 @@ namespace AirMonitor.Domain.Installation
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(InstallationId, Name, Description, LogoUri, LinkUri);
+            return HashCode.Combine(Id, Name, Description, LogoUri, LinkUri);
         }
             
         #endregion
 
         #region StaticConstructors
         
-        public static InstallationSponsor Create(string name,
+        public static InstallationSponsor Create(long id,
+                                                 string name,
                                                  string description,
                                                  string logoUri,
                                                  string linkUri)
-            => new InstallationSponsor(null, name, description, logoUri, linkUri);
+            => new InstallationSponsor(id, name, description, logoUri, linkUri);
             
         #endregion
     }
