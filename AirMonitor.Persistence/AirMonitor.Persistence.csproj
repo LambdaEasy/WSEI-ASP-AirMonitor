@@ -5,10 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Installation\Repository" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\AirMonitor.Core\AirMonitor.Core.csproj" />
       <ProjectReference Include="..\AirMonitor.Domain\AirMonitor.Domain.csproj" />
     </ItemGroup>
 
