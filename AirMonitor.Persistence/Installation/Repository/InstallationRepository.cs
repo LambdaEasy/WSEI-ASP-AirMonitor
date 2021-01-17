@@ -1,60 +1,75 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AirMonitor.Core.Installation;
+using AirMonitor.Persistence.Installation.Entity;
 using AirMonitor.Util.Flow;
+using InstallationDomain = AirMonitor.Domain.Installation.Installation;
 
 namespace AirMonitor.Persistence.Installation.Repository
 {
     public class InstallationRepository : IInstallationRepository
     {
-        private readonly InstallationDao _dao;
+        private readonly InstallationDao _installationDao;
 
-        private InstallationRepository(InstallationDao dao)
+        private InstallationRepository(InstallationDao installationDao)
         {
-            this._dao = dao;
+            this._installationDao = installationDao;
         }
 
-        public Option<Domain.Installation.Installation> TrySave(Domain.Installation.Installation installation)
+        // TODO log
+        public Option<InstallationDomain> TrySave(InstallationDomain domain)
         {
-            throw new System.NotImplementedException();
+            if (!_installationDao.ExistsByExternalId(domain.ExternalId)) {
+                InstallationEntity entity = _installationDao.Save(InstallationEntity.FromDomain(domain));
+                return Option<InstallationDomain>.Of(entity.ToDomain());
+            }
+            return Option<InstallationDomain>.Empty<InstallationDomain>();
         }
 
-        public Domain.Installation.Installation Save(Domain.Installation.Installation installation)
+        // TODO log
+        public InstallationDomain Save(InstallationDomain installation)
         {
-            throw new System.NotImplementedException();
+            InstallationEntity entity = _installationDao.Save(InstallationEntity.FromDomain(installation));
+            return entity.ToDomain();
         }
 
-        public Option<Domain.Installation.Installation> FindById(long id)
-        {
-            throw new System.NotImplementedException();
-        }
+        // TODO log
+        public Option<InstallationDomain> FindById(long id) => Option<InstallationDomain>
+            .Of(_installationDao.FindById(id))
+            .Map(installation => installation.ToDomain());
 
-        public Option<Domain.Installation.Installation> FindByExternalId(long externalId)
-        {
-            throw new System.NotImplementedException();
-        }
+        // TODO log
+        public Option<InstallationDomain> FindByExternalId(long externalId) => Option<InstallationDomain>
+            .Of(_installationDao.FindByExternalId(externalId))
+            .Map(installation => installation.ToDomain());
 
-        public HashSet<Domain.Installation.Installation> FindAll()
-        {
-            throw new System.NotImplementedException();
-        }
+        // TODO log
+        public HashSet<InstallationDomain> FindAll()
+            => _installationDao.FindAll()
+                               .Select(entity => entity.ToDomain())
+                               .ToHashSet();
 
-        public HashSet<Domain.Installation.Installation> FindAllByLocation(float latitude, float longitude, int radius)
-        {
-            throw new System.NotImplementedException();
-        }
+        // TODO log
+        // TODO revision
+        public HashSet<InstallationDomain> FindAllByLocation(float latitude, float longitude, int radius)
+            => _installationDao.FindAllWhereLocationInAndLongitudeIn(latitude - radius,
+                                                                     latitude + radius,
+                                                                     longitude - radius,
+                                                                     longitude + radius)
+                               .Select(entity => entity.ToDomain())
+                               .ToHashSet();
 
+        // TODO log
         public bool DeleteById(long id)
-        {
-            throw new System.NotImplementedException();
-        }
+            => _installationDao.DeleteById(id);
 
         #region Factory
 
         public static class Factory
         {
-            public static InstallationRepository Create(InstallationDao dao)
-                => new InstallationRepository(dao ?? throw new ArgumentException("InstallationDao in null."));
+            public static InstallationRepository Create(InstallationDao installationDao)
+                => new InstallationRepository(installationDao ?? throw new ArgumentException("InstallationDao in null."));
         }
 
         #endregion
