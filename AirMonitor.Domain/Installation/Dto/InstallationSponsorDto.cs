@@ -6,13 +6,13 @@ namespace AirMonitor.Domain.Installation.Dto
     {
         #region Fields
 
-        public long InstallationId => _installationId;
+        public long Id => _id;
         public string Name => _name;
         public string Description => _description;
         public string LogoUri => _logoUri;
         public string LinkUri => _linkUri;
 
-        private readonly long _installationId;
+        private readonly long _id;
         private readonly string _name;
         private readonly string _description;
         private readonly string _logoUri;
@@ -22,13 +22,13 @@ namespace AirMonitor.Domain.Installation.Dto
 
         #region Constructors
 
-        public InstallationSponsorDto(long installationId,
+        public InstallationSponsorDto(long id,
                                       string name,
                                       string description,
                                       string logoUri,
                                       string linkUri)
         {
-            _installationId = installationId;
+            _id = id;
             _name = name;
             _description = description;
             _logoUri = logoUri;
@@ -49,7 +49,7 @@ namespace AirMonitor.Domain.Installation.Dto
             {
                 return true;
             }
-            return _installationId == other._installationId
+            return _id == other._id
                 && _name == other._name
                 && _description == other._description
                 && _logoUri == other._logoUri
@@ -75,7 +75,7 @@ namespace AirMonitor.Domain.Installation.Dto
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_installationId, _name, _description, _logoUri, _linkUri);
+            return HashCode.Combine(_id, _name, _description, _logoUri, _linkUri);
         }
 
         #endregion
@@ -83,7 +83,7 @@ namespace AirMonitor.Domain.Installation.Dto
         #region StaticConstructors
         
         public static InstallationSponsorDto FromDomain(InstallationSponsor domain)
-            => new InstallationSponsorDto(domain.InstallationId ?? throw new ArgumentException("LocationId is null"), 
+            => new InstallationSponsorDto(domain.Id, 
                                           domain.Name,
                                           domain.Description,
                                           domain.LogoUri,
