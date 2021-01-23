@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Persistence.Installation.Entity;
@@ -5,19 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirMonitor.Persistence.Installation.Repository
 {
-    public class InstallationContext : DbContext
+    public class InstallationDao 
     {
-        #region DbTables
+        #region fields
 
-        private DbSet<InstallationEntity> Installations { get; set; }
-        private DbSet<InstallationAddressEntity> InstallationAddresses { get; set; }
-        private DbSet<InstallationSponsorEntity> InstallationSponsors { get; set; }
+        private readonly AirMonitorDbContext _db;
 
         #endregion
 
         #region Constructors
 
-        public InstallationContext(DbContextOptions options) : base(options) { }
+        private InstallationDao(AirMonitorDbContext db)
+        {
+            this._db = db;
+        }
 
         #endregion
 
@@ -26,39 +28,39 @@ namespace AirMonitor.Persistence.Installation.Repository
 
         public InstallationEntity Save(InstallationEntity installation)
         {
-            Installations.Add(installation);
-            SaveChanges();
+            _db.Installations.Add(installation);
+            _db.SaveChanges();
             return installation; // TODO verify id exists on saved entity
         }
 
         public InstallationEntity FindById(long? id)
             => id == null
              ? null
-             : Installations.Include(installation => installation.Address)
-                            .Include(installation => installation.Sponsor)
-                            .SingleOrDefault(installation => installation.Id == id);
+             : _db.Installations.Include(installation => installation.Address)
+                                .Include(installation => installation.Sponsor)
+                                .SingleOrDefault(installation => installation.Id == id);
 
         public InstallationEntity FindByExternalId(long? externalId)
             => externalId == null
              ? null
-             : Installations.Include(installation => installation.Address)
-                            .Include(installation => installation.Sponsor)
-                            .SingleOrDefault(installation => installation.ExternalId == externalId);
+             : _db.Installations.Include(installation => installation.Address)
+                                .Include(installation => installation.Sponsor)
+                                .SingleOrDefault(installation => installation.ExternalId == externalId);
 
         public HashSet<InstallationEntity> FindAll()
-            => Installations.Include(installation => installation.Address)
-                            .Include(installation => installation.Sponsor)
-                            .ToHashSet();
+            => _db.Installations.Include(installation => installation.Address)
+                                .Include(installation => installation.Sponsor)
+                                .ToHashSet();
 
         public HashSet<InstallationEntity> FindAllWhereLocationInAndLongitudeIn(float minLatitude,
                                                                                 float maxLatitude,
                                                                                 float minLongitude,
                                                                                 float maxLongitude)
-            => Installations.Include(installation => installation.Address)
-                            .Include(installation => installation.Sponsor)
-                            .Where(installation => installation.Latitude >= minLatitude && installation.Latitude <= maxLatitude)
-                            .Where(installation => installation.Longitude >= minLongitude && installation.Longitude <= maxLongitude)
-                            .ToHashSet();
+            => _db.Installations.Include(installation => installation.Address)
+                                .Include(installation => installation.Sponsor)
+                                .Where(installation => installation.Latitude >= minLatitude && installation.Latitude <= maxLatitude)
+                                .Where(installation => installation.Longitude >= minLongitude && installation.Longitude <= maxLongitude)
+                                .ToHashSet();
 
         public bool DeleteById(long id)
         {
@@ -67,9 +69,15 @@ namespace AirMonitor.Persistence.Installation.Repository
             {
                 return false;
             }
-            Installations.Remove(installation);
-            SaveChanges();
+            _db.Installations.Remove(installation);
+            _db.SaveChanges();
             return true;
+        }
+
+        public static class Factory
+        {
+            public static InstallationDao Create(AirMonitorDbContext db)
+                => new InstallationDao(db ?? throw new AggregateException("DatabaseContext is null"));
         }
     }
 }
