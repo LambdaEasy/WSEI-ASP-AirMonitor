@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirMonitor.Persistence.Installation.Repository
 {
-    public class InstallationDao : DbContext
+    public class InstallationContext : DbContext
     {
         #region DbTables
 
@@ -17,7 +17,7 @@ namespace AirMonitor.Persistence.Installation.Repository
 
         #region Constructors
 
-        public InstallationDao(DbContextOptions options) : base(options) { }
+        public InstallationContext(DbContextOptions options) : base(options) { }
 
         #endregion
 
