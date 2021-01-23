@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using AirMonitor.Domain.Installation;
 using InstallationDomain = AirMonitor.Domain.Installation.Installation;
 
 namespace AirMonitor.Persistence.Installation.Entity
 {
+    [Table("Installations")]
     public class InstallationEntity : IEquatable<InstallationEntity>
     {
         #region Fields
