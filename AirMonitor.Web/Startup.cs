@@ -1,5 +1,6 @@
 using System;
 using AirMonitor.Core.Installation;
+using AirMonitor.Infrastructure.Service;
 using AirMonitor.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,14 +22,12 @@ namespace AirMonitor.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Persistence
-
             string connectionString = Configuration.GetConnectionString("Development");
             IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(connectionString);
-            
-            #endregion
-            
+            IInstallationFacade installationFacade = InstallationService.Factory.Create(installationRepository);
+
             services.AddSingleton<IInstallationRepository>(installationRepository);
+            services.AddSingleton<IInstallationFacade>(installationFacade);
             services.AddControllersWithViews();
         }
 
