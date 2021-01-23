@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirMonitor.Domain.Installation;
 
@@ -9,10 +10,23 @@ namespace AirMonitor.Persistence.Installation.Entity
     {
         #region Fields
 
+        [Key]
         public long Id { get; set; }
+
+        [Required]
+        [MaxLength(256)]
         public string Name { get; set; }
+
+        [Required]
+        // nvarchar(max)
         public string Description { get; set; }
+
+        [Required]
+        [MaxLength(512)]
         public string LogoUri { get; set; }
+
+        [Required]
+        [MaxLength(512)]
         public string LinkUri { get; set; }
 
         #endregion

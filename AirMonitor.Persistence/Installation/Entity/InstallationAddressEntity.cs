@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirMonitor.Domain.Installation;
 
@@ -9,12 +10,31 @@ namespace AirMonitor.Persistence.Installation.Entity
     {
         #region Fields
 
+        [Key]
         public long InstallationId { get; set; }
+
+        [Required]
+        [MaxLength(256)]
         public string Country { get; set; }
+
+        [Required]
+        [MaxLength(256)]
         public string City { get; set; }
+
+        [Required]
+        [MaxLength(512)]
         public string Street { get; set; }
+
+        [Required]
+        [MaxLength(256)]
         public string Number { get; set; }
+
+        [Required]
+        [MaxLength(1024)]
         public string DisplayAddress1 { get; set; }
+
+        [Required]
+        [MaxLength(1024)]
         public string DisplayAddress2 { get; set; }
 
         #endregion
