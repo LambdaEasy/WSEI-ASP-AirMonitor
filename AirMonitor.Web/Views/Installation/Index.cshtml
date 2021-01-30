@@ -1,0 +1,10 @@
+@model ISet<AirMonitor.Domain.Installation.Dto.InstallationDto>
+
+<h1>Installation Index View</h1>
+
+<h2>Installations</h2>
+
+@foreach (var installation in Model)
+{
+    <h3>@installation.Address.DisplayAddress1</h3>
+}
