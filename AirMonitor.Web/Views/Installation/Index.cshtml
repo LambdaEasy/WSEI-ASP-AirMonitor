@@ -4,7 +4,35 @@
 
 <h2>Installations</h2>
 
+<button onclick="getLocation()">Find nearby air condition</button>
+
 @foreach (var installation in Model)
 {
     <h3>@installation.Address.DisplayAddress1</h3>
 }
+
+<script type="text/javascript">
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(onSuccessfulGeolocationRead, onUnsuccessfulGeolocationRead);
+      }
+  }
+  function onSuccessfulGeolocationRead(position) {
+      console.log(`(latitude=${position.coords.latitude}, longitude=${position.coords.longitude})`);
+  }
+  function onUnsuccessfulGeolocationRead(error) {
+      console.log(`could not read geolocation`);
+      if (error.code == 1) {  
+          console.log("User denied the request for Geolocation.");
+      }  
+      else if (err.code == 2) {  
+          console.log("Location information is unavailable.");
+      }  
+      else if (err.code == 3) {  
+          console.log("The request to get user location timed out.");
+      }  
+      else {  
+          console.log("An unknown error occurred.");
+      }  
+  }
+</script>
