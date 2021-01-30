@@ -7,7 +7,7 @@ namespace AirMonitor.Client.Api.Response.Installation
         /// <summary>
         /// Unique installation identifier.
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Not described in api documentation
@@ -48,7 +48,7 @@ namespace AirMonitor.Client.Api.Response.Installation
             // serializer
         }
 
-        public GetInstallationsNearestResponse(string id,
+        public GetInstallationsNearestResponse(long id,
                                                long? locationId,
                                                double elevation,
                                                bool airly,
