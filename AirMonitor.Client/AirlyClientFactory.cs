@@ -5,7 +5,7 @@ using AirMonitor.Client.Util;
 // TODO log
 namespace AirMonitor.Client
 {
-    public static class ArilyClientFactory
+    public static class AirlyClientFactory
     {
         public static IAirlyClient Create(IAirlyClientConfig config)
             => new AirlyClient(CreateHttpClient(config), CreateOptions(config));
