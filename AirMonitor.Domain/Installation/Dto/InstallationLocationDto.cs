@@ -7,19 +7,19 @@ namespace AirMonitor.Domain.Installation.Dto
 
         #region Fields
 
-        public float Latitude => _latitude;
-        public float Longitude => _longitude;
-        public float Elevation => _elevation;
+        public double Latitude => _latitude;
+        public double Longitude => _longitude;
+        public double Elevation => _elevation;
 
-        private readonly float _latitude;
-        private readonly float _longitude;
-        private readonly float _elevation;
+        private readonly double _latitude;
+        private readonly double _longitude;
+        private readonly double _elevation;
 
         #endregion
         
         #region Constructors
         
-        private InstallationLocationDto(float latitude, float longitude, float elevation)
+        private InstallationLocationDto(double latitude, double longitude, double elevation)
         {
             _latitude = latitude;
             _longitude = longitude;

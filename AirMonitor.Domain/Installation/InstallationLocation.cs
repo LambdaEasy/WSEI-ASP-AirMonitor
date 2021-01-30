@@ -7,15 +7,15 @@ namespace AirMonitor.Domain.Installation
 
         #region Fields
         
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-        public float Elevation { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Elevation { get; set; }
         
         #endregion
         
         #region Constructors
         
-        public InstallationLocation(float latitude, float longitude, float elevation)
+        public InstallationLocation(double latitude, double longitude, double elevation)
         {
             Latitude = latitude;
             Longitude = longitude;
@@ -68,7 +68,7 @@ namespace AirMonitor.Domain.Installation
 
         #region StaticConstructors
 
-        public static InstallationLocation Create(float latitude, float longitude, float elevation)
+        public static InstallationLocation Create(double latitude, double longitude, double elevation)
             => new InstallationLocation(latitude, longitude, elevation);
         
         #endregion

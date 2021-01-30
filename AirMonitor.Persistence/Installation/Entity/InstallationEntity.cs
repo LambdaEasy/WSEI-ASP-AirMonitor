@@ -21,13 +21,13 @@ namespace AirMonitor.Persistence.Installation.Entity
         public bool IsAirly { get; set; }
 
         [Required]
-        public float Latitude { get; set; }
+        public double Latitude { get; set; }
 
         [Required]
-        public float Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [Required]
-        public float Elevation { get; set; }
+        public double Elevation { get; set; }
 
         [Required]
         public InstallationAddressEntity Address { get; set; }
@@ -47,9 +47,9 @@ namespace AirMonitor.Persistence.Installation.Entity
         public InstallationEntity(long? id,
                                   long externalId,
                                   bool isAirly,
-                                  float latitude,
-                                  float longitude,
-                                  float elevation,
+                                  double latitude,
+                                  double longitude,
+                                  double elevation,
                                   InstallationAddressEntity address,
                                   InstallationSponsorEntity sponsor)
         {

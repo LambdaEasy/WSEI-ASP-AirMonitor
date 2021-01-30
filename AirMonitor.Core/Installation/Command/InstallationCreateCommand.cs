@@ -67,9 +67,9 @@ namespace AirMonitor.Core.Installation.Command
         {
             #region Fields
 
-            private readonly float _latitude;
-            private readonly float _longitude;
-            private readonly float _elevation;
+            private readonly double _latitude;
+            private readonly double _longitude;
+            private readonly double _elevation;
 
             #endregion
 
@@ -81,7 +81,7 @@ namespace AirMonitor.Core.Installation.Command
 
             #region Construtors
 
-            private InstallationCreateCommandLocation(float latitude, float longitude, float elevation)
+            private InstallationCreateCommandLocation(double latitude, double longitude, double elevation)
             {
                 _latitude = latitude;
                 _longitude = longitude;
@@ -92,7 +92,7 @@ namespace AirMonitor.Core.Installation.Command
 
             #region StaticConstructors
 
-            public static InstallationCreateCommandLocation Create(float latitude, float longitude, float elevation)
+            public static InstallationCreateCommandLocation Create(double latitude, double longitude, double elevation)
                 // TODO validate
                 => new InstallationCreateCommandLocation(latitude, longitude, elevation);
 
