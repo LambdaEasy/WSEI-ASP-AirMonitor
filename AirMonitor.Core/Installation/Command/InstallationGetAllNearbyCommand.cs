@@ -30,7 +30,7 @@ namespace AirMonitor.Core.Installation.Command
 
         #region StaticConstructors
 
-        public static InstallationGetAllNearbyCommand Create(float latitude, float longitude, int radius)
+        public static InstallationGetAllNearbyCommand Create(float latitude, float longitude, int radius = 3)
             // TODO validate
             => new InstallationGetAllNearbyCommand(latitude, longitude, radius);
 

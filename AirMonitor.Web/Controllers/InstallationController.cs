@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using AirMonitor.Core.Installation;
+using AirMonitor.Core.Installation.Command;
+using AirMonitor.Domain.Installation.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +22,14 @@ namespace AirMonitor.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(_facade.GetAll());
+            return View(new HashSet<InstallationDto>());
+        }
+
+        [HttpGet]
+        [Route("installation/nearby")]
+        public IActionResult Index(float latitude, float longitude) // TODO required queryParams
+        {
+            return View(_facade.GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude)));
         }
     }
 }
