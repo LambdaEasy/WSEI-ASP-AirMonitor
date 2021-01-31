@@ -18,7 +18,7 @@ namespace AirMonitor.Persistence
         #region Constructors
 
         // TODO [dev-only] solve migrations
-        internal AirMonitorDbContext() { }
+        public AirMonitorDbContext() { }
         
         internal AirMonitorDbContext(DbContextOptions<AirMonitorDbContext> options) : base(options) { }
 
@@ -31,7 +31,7 @@ namespace AirMonitor.Persistence
             // TODO [dev-only] solve migrations
             if (!optionsBuilder.IsConfigured)
             { 
-                optionsBuilder.UseSqlServer("Data Source=192.168.100.121,1433; Initial Catalog=AirMonitor; User ID=dev; Password=dev;");
+                optionsBuilder.UseSqlServer("Data Source=192.168.100.121,1433; Initial Catalog=AirMonitorDev; User ID=dev; Password=dev;");
             }
         }
 

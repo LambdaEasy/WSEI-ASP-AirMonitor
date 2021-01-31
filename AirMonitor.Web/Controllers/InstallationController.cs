@@ -27,7 +27,7 @@ namespace AirMonitor.Web.Controllers
 
         [HttpGet]
         [Route("installation/nearby")]
-        public IActionResult Index(float latitude, float longitude) // TODO required queryParams
+        public IActionResult Index(double latitude, double longitude) // TODO required queryParams
         {
             return View(_facade.GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude)));
         }

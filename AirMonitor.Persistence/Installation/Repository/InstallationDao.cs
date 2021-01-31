@@ -52,10 +52,10 @@ namespace AirMonitor.Persistence.Installation.Repository
                                 .Include(installation => installation.Sponsor)
                                 .ToHashSet();
 
-        public HashSet<InstallationEntity> FindAllWhereLocationInAndLongitudeIn(float minLatitude,
-                                                                                float maxLatitude,
-                                                                                float minLongitude,
-                                                                                float maxLongitude)
+        public HashSet<InstallationEntity> FindAllWhereLocationInAndLongitudeIn(double minLatitude,
+                                                                                double maxLatitude,
+                                                                                double minLongitude,
+                                                                                double maxLongitude)
             => _db.Installations.Include(installation => installation.Address)
                                 .Include(installation => installation.Sponsor)
                                 .Where(installation => installation.Latitude >= minLatitude && installation.Latitude <= maxLatitude)

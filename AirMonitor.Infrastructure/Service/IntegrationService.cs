@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using AirMonitor.Core;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 using AirMonitor.Domain.Installation.Dto;
@@ -11,20 +12,20 @@ using Microsoft.Extensions.Logging;
 // TODO [refactor] what a mess xD
 namespace AirMonitor.Infrastructure.Service
 {
-    public class IntegrationService : IInstallationFacade
+    public class IntegrationService : IIntegrationFacade
     {
         private readonly ILogger<IntegrationService> _logger;
 
         private readonly IInstallationFacade _core;
         private readonly IInstallationClient _integration;
 
-        private IntegrationService(ILogger<IntegrationService> logger,
-                                   IInstallationFacade core,
-                                   IInstallationClient integration)
+        public IntegrationService(ILogger<IntegrationService> logger,
+                                  IInstallationFacade core,
+                                  IInstallationClient integration)
         {
-            this._logger = logger;
-            this._core = core;
-            this._integration = integration;
+            this._logger = logger ?? throw new ArgumentException("Logger is null");
+            this._core = core ?? throw new ArgumentException("Core is null");
+            this._integration = integration ?? throw new ArgumentException("Integration is null");
         }
 
         public Either<InstallationError, InstallationDto> CreateInstallation(InstallationCreateCommand command)
@@ -111,19 +112,5 @@ namespace AirMonitor.Infrastructure.Service
 
         private static string FormatExecTime(DateTimeOffset beginTime)
             => (DateTime.Now - beginTime).TotalMilliseconds.ToString(CultureInfo.InvariantCulture);
-
-        #region StaticConstructors
-
-        public static class Factory
-        {
-            public static IInstallationFacade Create(ILogger<IntegrationService> logger,
-                                                     IInstallationFacade core,
-                                                     IInstallationClient integration)
-                => new IntegrationService(logger ?? throw new ArgumentException("Logger is null"),
-                                          core ?? throw new ArgumentException("Core is null"),
-                                          integration ?? throw new ArgumentException("Integration is null"));
-        }
-
-        #endregion
     }
 }
