@@ -25,7 +25,7 @@ namespace AirMonitor.Client
         private static void InterceptDefaultHttpHeaders(HttpClient httpClient)
         {
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "utf-8");
         }
 
         // TODO [client] interceptor?
