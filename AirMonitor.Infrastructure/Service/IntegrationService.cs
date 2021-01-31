@@ -1,19 +1,27 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 using AirMonitor.Domain.Installation.Dto;
 using AirMonitor.Util.Flow;
+using Microsoft.Extensions.Logging;
 
 namespace AirMonitor.Infrastructure.Service
 {
     public class IntegrationService : IInstallationFacade
     {
+        private readonly ILogger<IntegrationService> _logger;
+
         private readonly IInstallationFacade _core;
         private readonly IInstallationClient _integration;
 
-        private IntegrationService(IInstallationFacade core, IInstallationClient integration)
+        private IntegrationService(ILogger<IntegrationService> logger,
+                                   IInstallationFacade core,
+                                   IInstallationClient integration)
         {
+            this._logger = logger;
             this._core = core;
             this._integration = integration;
         }
@@ -32,17 +40,34 @@ namespace AirMonitor.Infrastructure.Service
             => _core.GetAll()
                     .Select(Either<InstallationError, InstallationDto>.Right<InstallationError, InstallationDto>)
                     .Select(RunIntegration)
-                    .Where(it => it.IsRight)
+                    .Where(it =>
+                    {
+                        if (it.IsLeft)
+                        {
+                            // TODO info which failed through error
+                            _logger.LogWarning("Integration result was a failure and will be skipped in result set.");
+                        }
+                        return it.IsRight;
+                    })
                     .Select(it => it.Get)
                     .ToHashSet();
 
         // TODO return either
         public HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
             => _integration.GetInstallationsNearby(command)
+                           // TODO createBatch
                            .Map(installations =>
                            {
                                return installations.Select(CreateInstallation)
-                                                   .Where(it => it.IsRight)
+                                                   .Where(it =>
+                                                   {
+                                                       if (it.IsLeft)
+                                                       {
+                                                           // TODO info which failed through error
+                                                           _logger.LogWarning("Core result was a failure and will be skipped in result set.");
+                                                       }
+                                                       return it.IsRight;
+                                                   })
                                                    .Select(it => it.Get)
                                                    .ToHashSet();
                            })
@@ -59,17 +84,31 @@ namespace AirMonitor.Infrastructure.Service
 
         private Either<InstallationError, InstallationDto> RunIntegration(Either<InstallationError, InstallationDto> context)
         {
-            // TODO Either.FlatMap?
+            DateTimeOffset beginTime = DateTimeOffset.Now;
+            _logger.LogInformation($"Integration process begin at {beginTime}");
             if (context.IsLeft)
             {
+                _logger.LogWarning($"Integration process finished due to a core error after {FormatExecTime(beginTime)}");
                 return context;
             }
 
             if (context.IsRight && context.Get.IsReadValid)
             {
+                _logger.LogTrace($"Integration process finished with no action after {FormatExecTime(beginTime)}");
                 return context;
             }
-            return Update(InstallationUpdateCommand.TemporaryDevCreate(context.Get));
+            return Update(InstallationUpdateCommand.TemporaryDevCreate(context.Get))
+                   .Peek(success =>
+                   {
+                       _logger.LogInformation($"Integration process finished with success result after {FormatExecTime(beginTime)}");
+                   })
+                   .PeekLeft(failure =>
+                   {
+                       _logger.LogWarning($"Integration process finished due to a integration error after {FormatExecTime(beginTime)}");
+                   });
         }
+
+        private static string FormatExecTime(DateTimeOffset beginTime)
+            => (DateTime.Now - beginTime).TotalMilliseconds.ToString(CultureInfo.InvariantCulture);
     }
 }
