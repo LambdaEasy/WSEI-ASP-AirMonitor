@@ -23,8 +23,8 @@ namespace AirMonitor.Persistence.Installation.Repository
 
         #endregion
 
-        public bool ExistsByExternalId(long? id)
-            => FindByExternalId(id) != null;
+        public bool ExistsByExternalId(long? externalId)
+            => externalId != null && _db.Installations.Any(installation => installation.ExternalId == externalId);
 
         public InstallationEntity Save(InstallationEntity installation)
         {

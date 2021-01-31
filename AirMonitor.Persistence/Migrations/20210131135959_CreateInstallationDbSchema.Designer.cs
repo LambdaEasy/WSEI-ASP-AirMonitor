@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirMonitor.Persistence.Migrations
 {
     [DbContext(typeof(AirMonitorDbContext))]
-    [Migration("20210131105653_CreateInstallationSchema")]
-    partial class CreateInstallationSchema
+    [Migration("20210131135959_CreateInstallationDbSchema")]
+    partial class CreateInstallationDbSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace AirMonitor.Persistence.Migrations
 
             modelBuilder.Entity("AirMonitor.Persistence.Installation.Entity.InstallationAddressEntity", b =>
                 {
-                    b.Property<long>("InstallationId")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
@@ -50,7 +50,6 @@ namespace AirMonitor.Persistence.Migrations
                         .HasColumnType("nvarchar(1024)");
 
                     b.Property<string>("Number")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -59,7 +58,7 @@ namespace AirMonitor.Persistence.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
-                    b.HasKey("InstallationId");
+                    b.HasKey("Id");
 
                     b.ToTable("InstallationAddress");
                 });
@@ -71,7 +70,7 @@ namespace AirMonitor.Persistence.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long?>("AddressInstallationId")
+                    b.Property<long?>("AddressId")
                         .HasColumnType("bigint");
 
                     b.Property<double>("Elevation")
@@ -94,7 +93,7 @@ namespace AirMonitor.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressInstallationId");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("SponsorId");
 
@@ -103,7 +102,7 @@ namespace AirMonitor.Persistence.Migrations
 
             modelBuilder.Entity("AirMonitor.Persistence.Installation.Entity.InstallationSponsorEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
@@ -111,6 +110,9 @@ namespace AirMonitor.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ExternalId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("LinkUri")
                         .IsRequired()
@@ -136,7 +138,7 @@ namespace AirMonitor.Persistence.Migrations
                 {
                     b.HasOne("AirMonitor.Persistence.Installation.Entity.InstallationAddressEntity", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressInstallationId");
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("AirMonitor.Persistence.Installation.Entity.InstallationSponsorEntity", "Sponsor")
                         .WithMany()
