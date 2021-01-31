@@ -52,7 +52,7 @@ namespace AirMonitor.Persistence.Installation.Repository
 
         // TODO log
         // TODO revision
-        public HashSet<InstallationDomain> FindAllByLocation(float latitude, float longitude, int radius)
+        public HashSet<InstallationDomain> FindAllByLocation(double latitude, double longitude, int radius)
             => _installationDao.FindAllWhereLocationInAndLongitudeIn(latitude - radius,
                                                                      latitude + radius,
                                                                      longitude - radius,

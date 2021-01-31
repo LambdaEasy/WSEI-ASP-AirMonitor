@@ -7,7 +7,7 @@ namespace AirMonitor.Domain.Installation
 
         #region Fields
         
-        public long? InstallationId { get; set; }
+        public long? Id { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
@@ -19,7 +19,7 @@ namespace AirMonitor.Domain.Installation
 
         #region Constructors
         
-        public InstallationAddress(long? installationId,
+        public InstallationAddress(long? id,
                                    string country,
                                    string city,
                                    string street,
@@ -27,7 +27,7 @@ namespace AirMonitor.Domain.Installation
                                    string displayAddress1,
                                    string displayAddress2)
         {
-            InstallationId = installationId;
+            Id = id;
             Country = country;
             City = city;
             Street = street;
@@ -51,7 +51,7 @@ namespace AirMonitor.Domain.Installation
             {
                 return true;
             }
-            return InstallationId == other.InstallationId
+            return Id == other.Id
                 && Country == other.Country
                 && City == other.City
                 && Street == other.Street
@@ -79,7 +79,7 @@ namespace AirMonitor.Domain.Installation
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(InstallationId, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
+            return HashCode.Combine(Id, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
         }
 
         #endregion

@@ -4,6 +4,8 @@ namespace AirMonitor.Core.Installation
     {
         Unknown,
         NotFound,
-        Duplicate
+        Duplicate,
+        
+        ClientError
     }
 }

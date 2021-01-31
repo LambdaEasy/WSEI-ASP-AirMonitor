@@ -67,9 +67,9 @@ namespace AirMonitor.Core.Installation.Command
         {
             #region Fields
 
-            private readonly float _latitude;
-            private readonly float _longitude;
-            private readonly float _elevation;
+            private readonly double _latitude;
+            private readonly double _longitude;
+            private readonly double _elevation;
 
             #endregion
 
@@ -81,7 +81,7 @@ namespace AirMonitor.Core.Installation.Command
 
             #region Construtors
 
-            private InstallationCreateCommandLocation(float latitude, float longitude, float elevation)
+            private InstallationCreateCommandLocation(double latitude, double longitude, double elevation)
             {
                 _latitude = latitude;
                 _longitude = longitude;
@@ -92,7 +92,7 @@ namespace AirMonitor.Core.Installation.Command
 
             #region StaticConstructors
 
-            public static InstallationCreateCommandLocation Create(float latitude, float longitude, float elevation)
+            public static InstallationCreateCommandLocation Create(double latitude, double longitude, double elevation)
                 // TODO validate
                 => new InstallationCreateCommandLocation(latitude, longitude, elevation);
 
@@ -169,7 +169,7 @@ namespace AirMonitor.Core.Installation.Command
         {
             #region Fields
 
-            private readonly long _id;
+            private readonly long _externalId;
             private readonly string _name;
             private readonly string _description;
             private readonly string _logoUri;
@@ -179,9 +179,9 @@ namespace AirMonitor.Core.Installation.Command
 
             #region Constructors
 
-            private InstallationCreateCommandSponsor(long id, string name, string description, string logoUri, string linkUri)
+            private InstallationCreateCommandSponsor(long externalId, string name, string description, string logoUri, string linkUri)
             {
-                _id = id;
+                _externalId = externalId;
                 _name = name;
                 _description = description;
                 _logoUri = logoUri;
@@ -192,6 +192,7 @@ namespace AirMonitor.Core.Installation.Command
 
             public override string ToString()
                 => "InstallationCreateCommandSponsor(" +
+                       $"externalId={_externalId}" +
                        $"name={_name}, " +
                        $"description={_description}, " +
                        $"logoUri={_logoUri}, " +
@@ -199,16 +200,16 @@ namespace AirMonitor.Core.Installation.Command
                    ")";
             
             public InstallationSponsor ToDomain()
-                => InstallationSponsor.Create(_id, _name, _description, _logoUri, _linkUri);
+                => InstallationSponsor.Create(null, _externalId, _name, _description, _logoUri, _linkUri);
 
             #region StaticConstructors
 
-            public static InstallationCreateCommandSponsor Create(long id,
+            public static InstallationCreateCommandSponsor Create(long externalId,
                                                                   string name,
                                                                   string description,
                                                                   string logoUri,
                                                                   string linkUri)
-                => new InstallationCreateCommandSponsor(id, name, description, logoUri, linkUri);
+                => new InstallationCreateCommandSponsor(externalId, name, description, logoUri, linkUri);
 
             #endregion
         }

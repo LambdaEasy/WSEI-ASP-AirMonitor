@@ -34,11 +34,17 @@ namespace AirMonitor.Util.Flow
 
         public TLeft GetLeft => _left ?? throw new ArgumentException("Either is right.");
 
-        public Either<TLeft, TR> Map<TR>(Func<TR> mapper) where TR : class
-            => IsRight ? Right<TLeft, TR>(mapper.Invoke()) : Left<TLeft, TR>(_left);
+        public TRight GetOrElse(TRight orElse)
+            => IsRight ? _right : orElse;
+
+        public Either<TLeft, TR> Map<TR>(Func<TRight, TR> mapper) where TR : class
+            => IsRight ? Right<TLeft, TR>(mapper.Invoke(_right)) : Left<TLeft, TR>(_left);
         
-        public Either<TL, TRight> MapLeft<TL>(Func<TL> mapper) where TL : class
-            => IsLeft ? Left<TL, TRight>(mapper.Invoke()) : Right<TL, TRight>(_right);
+        public Either<TL, TRight> MapLeft<TL>(Func<TLeft, TL> mapper) where TL : class
+            => IsLeft ? Left<TL, TRight>(mapper.Invoke(_left)) : Right<TL, TRight>(_right);
+
+        public Either<TLeft, TRight> FlatMap(Func<TRight, Either<TLeft, TRight>> mapper)
+            => IsRight ? mapper.Invoke(_right) : this;
 
         public Either<TLeft, TRight> Peek(Action<TRight> action)
         {

@@ -72,19 +72,19 @@ namespace AirMonitor.Client.Api.Request.Installation
 
         #region StaticConstructors
 
-        public GetInstallationsNearestRequest Create(double latitude, double longitude)
+        public static GetInstallationsNearestRequest Create(double latitude, double longitude)
             => new GetInstallationsNearestRequest(latitude, longitude, null, null);
         
-        public GetInstallationsNearestRequest Create(double latitude, double longitude, double maxDistanceKm)
+        public static GetInstallationsNearestRequest Create(double latitude, double longitude, double maxDistanceKm)
             => new GetInstallationsNearestRequest(latitude, longitude, maxDistanceKm, null);
         
-        public GetInstallationsNearestRequest Create(double latitude, double longitude, int maxResults)
+        public static GetInstallationsNearestRequest Create(double latitude, double longitude, int maxResults)
             => new GetInstallationsNearestRequest(latitude, longitude, null, maxResults);
 
-        public GetInstallationsNearestRequest Create(double latitude,
-                                                     double longitude,
-                                                     double maxDistanceKm,
-                                                     int maxResults)
+        public static GetInstallationsNearestRequest Create(double latitude,
+                                                            double longitude,
+                                                            double maxDistanceKm,
+                                                            int maxResults)
             => new GetInstallationsNearestRequest(latitude, longitude, maxDistanceKm, maxResults);
         
         #endregion

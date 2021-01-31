@@ -1,0 +1,19 @@
+@model AirMonitor.Web.Models.Installation.InstallationNearbyViewModel
+
+<h2>Installations Nearby</h2>
+
+<div>
+    (@Model.Latitude , @Model.Longitude)
+</div>
+
+@if (@Model.Installations.Count > 0)
+{
+    @foreach (var installation in Model.Installations)
+    {
+        @await Html.PartialAsync("Installation/InstallationSharedView", @installation)
+    }
+}
+else
+{
+    <div>Ups.. It doesn't look like there are any installations near you. &#128549</div>
+}

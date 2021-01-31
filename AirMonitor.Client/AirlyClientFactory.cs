@@ -5,7 +5,7 @@ using AirMonitor.Client.Util;
 // TODO log
 namespace AirMonitor.Client
 {
-    public static class ArilyClientFactory
+    public static class AirlyClientFactory
     {
         public static IAirlyClient Create(IAirlyClientConfig config)
             => new AirlyClient(CreateHttpClient(config), CreateOptions(config));
@@ -25,7 +25,7 @@ namespace AirMonitor.Client
         private static void InterceptDefaultHttpHeaders(HttpClient httpClient)
         {
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "utf-8");
         }
 
         // TODO [client] interceptor?

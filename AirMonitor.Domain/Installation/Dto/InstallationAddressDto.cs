@@ -6,7 +6,7 @@ namespace AirMonitor.Domain.Installation.Dto
     {
         #region Fields
 
-        public long InstallationId => _installationId;
+        public long Id => _id;
         public string Country => _country;
         public string City => _city;
         public string Street => _street;
@@ -14,7 +14,7 @@ namespace AirMonitor.Domain.Installation.Dto
         public string DisplayAddress1 => _displayAddress1;
         public string DisplayAddress2 => _displayAddress2;
 
-        private readonly long _installationId;
+        private readonly long _id;
         private readonly string _country;
         private readonly string _city;
         private readonly string _street;
@@ -26,7 +26,7 @@ namespace AirMonitor.Domain.Installation.Dto
 
         #region Constructors
 
-        private InstallationAddressDto(long installationId,
+        private InstallationAddressDto(long id,
                                        string country,
                                        string city,
                                        string street,
@@ -34,7 +34,7 @@ namespace AirMonitor.Domain.Installation.Dto
                                        string displayAddress1,
                                        string displayAddress2)
         {
-            _installationId = installationId;
+            _id = id;
             _country = country;
             _city = city;
             _street = street;
@@ -57,7 +57,7 @@ namespace AirMonitor.Domain.Installation.Dto
             {
                 return true;
             }
-            return _installationId == other._installationId
+            return _id == other._id
                 && _country == other._country
                 && _city == other._city
                 && _street == other._street
@@ -84,14 +84,14 @@ namespace AirMonitor.Domain.Installation.Dto
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(_installationId, _country, _city, _street, _number, _displayAddress1, _displayAddress2);
+            => HashCode.Combine(_id, _country, _city, _street, _number, _displayAddress1, _displayAddress2);
 
         #endregion
 
         #region StaticConstructors
 
         public static InstallationAddressDto FromDomain(InstallationAddress domain)
-            => new InstallationAddressDto(domain.InstallationId ?? throw new ArgumentException("InstallationId is null"),
+            => new InstallationAddressDto(domain.Id ?? throw new ArgumentException("Id is null"),
                                           domain.Country,
                                           domain.City,
                                           domain.Street,

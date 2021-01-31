@@ -19,8 +19,8 @@ namespace AirMonitor.Client.Api
         public AirlyClientErrorCode Code => _code;
         public string Message => _message;
 
-        public readonly AirlyClientErrorCode _code;
-        public readonly string _message;
+        private readonly AirlyClientErrorCode _code;
+        private readonly string _message;
 
         #endregion
 
