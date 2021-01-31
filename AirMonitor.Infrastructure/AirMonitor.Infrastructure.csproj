@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AirMonitor.Client\AirMonitor.Client.csproj" />
       <ProjectReference Include="..\AirMonitor.Core\AirMonitor.Core.csproj" />
       <ProjectReference Include="..\AirMonitor.Util\AirMonitor.Util.csproj" />
     </ItemGroup>
