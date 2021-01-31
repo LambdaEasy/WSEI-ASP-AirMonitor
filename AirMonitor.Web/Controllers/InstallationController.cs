@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AirMonitor.Core;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 using AirMonitor.Domain.Installation.Dto;
@@ -11,13 +12,13 @@ namespace AirMonitor.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IInstallationFacade _facade;
+        private readonly IIntegrationFacade _integration;
         
         public InstallationController(ILogger<HomeController> logger,
-                                      IInstallationFacade facade)
+                                      IIntegrationFacade integration)
         {
             this._logger = logger;
-            this._facade = facade;
+            this._integration = integration;
         }
 
         public IActionResult Index()
@@ -29,7 +30,7 @@ namespace AirMonitor.Web.Controllers
         [Route("installation/nearby")]
         public IActionResult Index(double latitude, double longitude) // TODO required queryParams
         {
-            return View(_facade.GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude)));
+            return View(_integration.GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude)));
         }
     }
 }
