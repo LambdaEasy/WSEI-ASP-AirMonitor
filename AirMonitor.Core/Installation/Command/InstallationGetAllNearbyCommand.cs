@@ -4,19 +4,19 @@ namespace AirMonitor.Core.Installation.Command
     {
         #region Fields
 
-        public float Latitude => _latitude;
-        public float Longitude => _longitude;
+        public double Latitude => _latitude;
+        public double Longitude => _longitude;
         public int Radius => _radius;
 
-        private readonly float _latitude;
-        private readonly float _longitude;
+        private readonly double _latitude;
+        private readonly double _longitude;
         private readonly int _radius;
 
         #endregion
 
         #region Constructors
 
-        private InstallationGetAllNearbyCommand(float latitude, float longitude, int radius)
+        private InstallationGetAllNearbyCommand(double latitude, double longitude, int radius)
         {
             _latitude = latitude;
             _longitude = longitude;
@@ -30,7 +30,7 @@ namespace AirMonitor.Core.Installation.Command
 
         #region StaticConstructors
 
-        public static InstallationGetAllNearbyCommand Create(float latitude, float longitude, int radius = 3)
+        public static InstallationGetAllNearbyCommand Create(double latitude, double longitude, int radius = 3)
             // TODO validate
             => new InstallationGetAllNearbyCommand(latitude, longitude, radius);
 

@@ -11,7 +11,10 @@ namespace AirMonitor.Persistence.Installation.Entity
         #region Fields
 
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
+
+        [Required]
+        public long ExternalId { get; set; }
 
         [Required]
         [MaxLength(256)]
@@ -38,13 +41,15 @@ namespace AirMonitor.Persistence.Installation.Entity
             // serializer
         }
 
-        public InstallationSponsorEntity(long id, 
+        public InstallationSponsorEntity(long? id,
+                                         long externalId,
                                          string name,
                                          string description,
                                          string logoUri,
                                          string linkUri)
         {
             Id = id;
+            ExternalId = externalId;
             Name = name;
             Description = description;
             LogoUri = logoUri;
@@ -67,6 +72,7 @@ namespace AirMonitor.Persistence.Installation.Entity
                 return true;
             }
             return Id == other.Id
+                && ExternalId == other.ExternalId
                 && Name == other.Name
                 && Description == other.Description
                 && LogoUri == other.LogoUri
@@ -91,7 +97,7 @@ namespace AirMonitor.Persistence.Installation.Entity
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(Id, Name, Description, LogoUri, LinkUri);
+            => HashCode.Combine(Id, ExternalId, Name, Description, LogoUri, LinkUri);
 
         #endregion
 
@@ -100,6 +106,7 @@ namespace AirMonitor.Persistence.Installation.Entity
         public override string ToString()
             => "InstallationSponsorEntity(" +
                    $"id={Id}, " +
+                   $"externalId={ExternalId}, " +
                    $"name={Name}, " +
                    $"description={Description}, " +
                    $"logoUri={LogoUri}, " +
@@ -109,12 +116,13 @@ namespace AirMonitor.Persistence.Installation.Entity
         #endregion
         
         public InstallationSponsor ToDomain()
-            => new InstallationSponsor(Id, Name, Description, LogoUri, LinkUri);
+            => new InstallationSponsor(Id, ExternalId, Name, Description, LogoUri, LinkUri);
 
         #region StaticConstructors
 
         public static InstallationSponsorEntity FromDomain(InstallationSponsor domain)
             => new InstallationSponsorEntity(domain.Id,
+                                             domain.ExternalId,
                                              domain.Name,
                                              domain.Description,
                                              domain.LogoUri,

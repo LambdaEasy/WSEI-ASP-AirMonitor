@@ -22,6 +22,13 @@ namespace AirMonitor.Domain.Installation.Dto
 
         #endregion
 
+        #region Properties
+
+        // TODO measurement, and date valid to
+        public bool IsReadValid => true;
+
+        #endregion
+
         #region Constructors
 
         public InstallationDto(long id,

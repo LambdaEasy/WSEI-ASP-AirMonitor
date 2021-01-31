@@ -14,7 +14,7 @@ namespace AirMonitor.Client.Util
                                     string apiPath,
                                     string query)
         {
-            var apiUrl = $"{GetProtocol(isSecure)}://{hostAddress}/{GetApiPrefix(apiPrefix)}{apiVersion}/";
+            var apiUrl = $"{GetProtocol(isSecure)}://{hostAddress}/{GetApiPrefix(apiPrefix)}{apiVersion}";
             var builder = new UriBuilder(apiUrl);
             builder.Port = -1;
             builder.Path += apiPath;

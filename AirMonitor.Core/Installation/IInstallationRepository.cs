@@ -50,7 +50,7 @@ namespace AirMonitor.Core.Installation
         /// Radius (in km) of circle around given coordinates in which installations will be included in result set
         /// </param>
         /// <returns>Set of installations</returns>
-        HashSet<InstallationDomain> FindAllByLocation(float latitude, float longitude, int radius);
+        HashSet<InstallationDomain> FindAllByLocation(double latitude, double longitude, int radius);
 
         /// <summary>
         /// Deletes Installation data by given technical Id.

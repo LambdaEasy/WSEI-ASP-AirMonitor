@@ -11,7 +11,7 @@ namespace AirMonitor.Persistence.Installation.Entity
         #region Fields
 
         [Key]
-        public long InstallationId { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         [MaxLength(256)]
@@ -25,7 +25,6 @@ namespace AirMonitor.Persistence.Installation.Entity
         [MaxLength(512)]
         public string Street { get; set; }
 
-        [Required]
         [MaxLength(256)]
         public string Number { get; set; }
 
@@ -46,7 +45,7 @@ namespace AirMonitor.Persistence.Installation.Entity
             // serializer
         }
 
-        public InstallationAddressEntity(long installationId,
+        public InstallationAddressEntity(long? id,
                                          string country,
                                          string city,
                                          string street,
@@ -54,7 +53,7 @@ namespace AirMonitor.Persistence.Installation.Entity
                                          string displayAddress1,
                                          string displayAddress2)
         {
-            InstallationId = installationId;
+            Id = id;
             Country = country;
             City = city;
             Street = street;
@@ -77,7 +76,7 @@ namespace AirMonitor.Persistence.Installation.Entity
             {
                 return true;
             }
-            return InstallationId == other.InstallationId
+            return Id == other.Id
                 && Country == other.Country
                 && City == other.City
                 && Street == other.Street
@@ -104,7 +103,7 @@ namespace AirMonitor.Persistence.Installation.Entity
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(InstallationId, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
+            => HashCode.Combine(Id, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
 
         #endregion
 
@@ -112,7 +111,7 @@ namespace AirMonitor.Persistence.Installation.Entity
 
         public override string ToString()
             => "InstallationAddressEntity(" +
-                   $"installationId={InstallationId}, " +
+                   $"id={Id}, " +
                    $"country={Country}, " +
                    $"city={City}, " +
                    $"street={Street}, " +
@@ -124,12 +123,12 @@ namespace AirMonitor.Persistence.Installation.Entity
         #endregion
 
         public InstallationAddress ToDomain()
-            => new InstallationAddress(InstallationId, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
+            => new InstallationAddress(Id, Country, City, Street, Number, DisplayAddress1, DisplayAddress2);
 
         #region StaticConstructors
 
         public static InstallationAddressEntity FromDomain(InstallationAddress domain)
-            => new InstallationAddressEntity(domain.InstallationId ?? throw new ArgumentException("InstallationId is null"), // TODO revisit not sure how to tackle it just yet
+            => new InstallationAddressEntity(domain.Id,
                                              domain.City,
                                              domain.City,
                                              domain.Street,

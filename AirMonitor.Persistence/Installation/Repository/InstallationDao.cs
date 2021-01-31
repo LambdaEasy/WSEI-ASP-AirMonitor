@@ -23,8 +23,8 @@ namespace AirMonitor.Persistence.Installation.Repository
 
         #endregion
 
-        public bool ExistsByExternalId(long? id)
-            => FindByExternalId(id) != null;
+        public bool ExistsByExternalId(long? externalId)
+            => externalId != null && _db.Installations.Any(installation => installation.ExternalId == externalId);
 
         public InstallationEntity Save(InstallationEntity installation)
         {
@@ -52,10 +52,10 @@ namespace AirMonitor.Persistence.Installation.Repository
                                 .Include(installation => installation.Sponsor)
                                 .ToHashSet();
 
-        public HashSet<InstallationEntity> FindAllWhereLocationInAndLongitudeIn(float minLatitude,
-                                                                                float maxLatitude,
-                                                                                float minLongitude,
-                                                                                float maxLongitude)
+        public HashSet<InstallationEntity> FindAllWhereLocationInAndLongitudeIn(double minLatitude,
+                                                                                double maxLatitude,
+                                                                                double minLongitude,
+                                                                                double maxLongitude)
             => _db.Installations.Include(installation => installation.Address)
                                 .Include(installation => installation.Sponsor)
                                 .Where(installation => installation.Latitude >= minLatitude && installation.Latitude <= maxLatitude)

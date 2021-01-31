@@ -2,7 +2,7 @@
 
 namespace AirMonitor.Persistence.Migrations
 {
-    public partial class InitDbSchema : Migration
+    public partial class CreateInstallationDbSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,18 +10,18 @@ namespace AirMonitor.Persistence.Migrations
                 name: "InstallationAddress",
                 columns: table => new
                 {
-                    InstallationId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Country = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     City = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Street = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    Number = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     DisplayAddress1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     DisplayAddress2 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InstallationAddress", x => x.InstallationId);
+                    table.PrimaryKey("PK_InstallationAddress", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,6 +30,7 @@ namespace AirMonitor.Persistence.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ExternalId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoUri = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
@@ -48,20 +49,20 @@ namespace AirMonitor.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExternalId = table.Column<long>(type: "bigint", nullable: false),
                     IsAirly = table.Column<bool>(type: "bit", nullable: false),
-                    Latitude = table.Column<float>(type: "real", nullable: false),
-                    Longitude = table.Column<float>(type: "real", nullable: false),
-                    Elevation = table.Column<float>(type: "real", nullable: false),
-                    AddressInstallationId = table.Column<long>(type: "bigint", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    Elevation = table.Column<double>(type: "float", nullable: false),
+                    AddressId = table.Column<long>(type: "bigint", nullable: true),
                     SponsorId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Installations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Installations_InstallationAddress_AddressInstallationId",
-                        column: x => x.AddressInstallationId,
+                        name: "FK_Installations_InstallationAddress_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "InstallationAddress",
-                        principalColumn: "InstallationId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Installations_InstallationSponsor_SponsorId",
@@ -72,9 +73,9 @@ namespace AirMonitor.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Installations_AddressInstallationId",
+                name: "IX_Installations_AddressId",
                 table: "Installations",
-                column: "AddressInstallationId");
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Installations_SponsorId",

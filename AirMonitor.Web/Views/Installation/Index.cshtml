@@ -19,7 +19,7 @@
   }
   function onSuccessfulGeolocationRead(position) {
       console.log(`(latitude=${position.coords.latitude}, longitude=${position.coords.longitude})`);
-      getForLocationsNearby(123.123, 123.123);
+      getForLocationsNearby(position.coords.latitude, position.coords.longitude);
   }
   function onUnsuccessfulGeolocationRead(error) {
       console.log(`could not read geolocation`);
@@ -37,6 +37,6 @@
       }
   }
   function getForLocationsNearby(latitude, longitude) {
-      window.location = "/installation/nearby?latitude=123.123&longitude=123.123";
+      window.location = `/installation/nearby?latitude=${latitude}&longitude=${longitude}`;
   }
 </script>

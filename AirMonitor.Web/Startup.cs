@@ -1,6 +1,8 @@
-using System;
+using AirMonitor.Client;
+using AirMonitor.Core;
 using AirMonitor.Core.Installation;
 using AirMonitor.Infrastructure.Service;
+using AirMonitor.Infrastructure.Service.Client;
 using AirMonitor.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,15 +21,22 @@ namespace AirMonitor.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("Development");
-            IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(connectionString);
-            IInstallationFacade installationFacade = InstallationService.Factory.Create(installationRepository);
+            ClientConfig clientConfig = new ClientConfig();
+            Configuration.Bind("ClientConfig", clientConfig);
 
+            IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(connectionString);
+            IAirlyClient client = AirlyClientFactory.Create(clientConfig);
+
+            // TODO log
             services.AddSingleton<IInstallationRepository>(installationRepository);
-            services.AddSingleton<IInstallationFacade>(installationFacade);
+            services.AddSingleton<IAirlyClient>(client);
+            services.AddSingleton<IInstallationClient, AirlyClientWrapper>();
+            services.AddSingleton<IInstallationFacade, InstallationService>();
+            services.AddSingleton<IIntegrationFacade, IntegrationService>();
+
             services.AddControllersWithViews();
         }
 
