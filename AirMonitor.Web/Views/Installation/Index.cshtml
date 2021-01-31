@@ -1,15 +1,6 @@
-@model ISet<AirMonitor.Domain.Installation.Dto.InstallationDto>
-
-<h1>Installation Index View</h1>
-
-<h2>Installations</h2>
+<h2>Installation</h2>
 
 <button onclick="getLocation()">Find nearby air condition</button>
-
-@foreach (var installation in Model)
-{
-    <h3>@installation.Address.DisplayAddress1</h3>
-}
 
 <script type="text/javascript">
   function getLocation() {

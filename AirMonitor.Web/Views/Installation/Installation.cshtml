@@ -1,0 +1,13 @@
+@model AirMonitor.Web.Models.Installation.InstallationViewModel
+
+<h2>Installations </h2>
+
+@if (Model.IsSuccess)
+{
+    <h3>@Model.Installation.Address.DisplayAddress1</h3>
+}
+else
+{
+    <h3>Error displaying Installation: @Model.Error.Code</h3>
+    <p>@Model.Error.Message</p>
+}
