@@ -8,6 +8,7 @@ using AirMonitor.Domain.Installation.Dto;
 using AirMonitor.Util.Flow;
 using Microsoft.Extensions.Logging;
 
+// TODO [refactor] what a mess xD
 namespace AirMonitor.Infrastructure.Service
 {
     public class IntegrationService : IInstallationFacade
@@ -110,5 +111,19 @@ namespace AirMonitor.Infrastructure.Service
 
         private static string FormatExecTime(DateTimeOffset beginTime)
             => (DateTime.Now - beginTime).TotalMilliseconds.ToString(CultureInfo.InvariantCulture);
+
+        #region StaticConstructors
+
+        public static class Factory
+        {
+            public static IInstallationFacade Create(ILogger<IntegrationService> logger,
+                                                     IInstallationFacade core,
+                                                     IInstallationClient integration)
+                => new IntegrationService(logger ?? throw new ArgumentException("Logger is null"),
+                                          core ?? throw new ArgumentException("Core is null"),
+                                          integration ?? throw new ArgumentException("Integration is null"));
+        }
+
+        #endregion
     }
 }
