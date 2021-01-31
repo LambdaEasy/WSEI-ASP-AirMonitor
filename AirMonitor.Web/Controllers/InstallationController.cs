@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+using System.Linq;
 using AirMonitor.Core;
 using AirMonitor.Core.Installation.Command;
-using AirMonitor.Domain.Installation.Dto;
 using AirMonitor.Web.Models.Installation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,13 +27,13 @@ namespace AirMonitor.Web.Controllers
         {
             if (id != null)
             {
-                var viewModel = InstallationViewModel.OfResult("id", id.ToString(), _integration.GetById(id ?? 1));
+                var viewModel = InstallationViewModel.OfResult(_integration.GetById(id ?? 1));
                 return View("Installation", viewModel);
             }
 
             if (externalId != null)
             {
-                var viewModel = InstallationViewModel.OfResult("externalId", externalId.ToString(), _integration.GetByExternalId(externalId ?? 1));
+                var viewModel = InstallationViewModel.OfResult(_integration.GetByExternalId(externalId ?? 1));
                 return View("Installation", viewModel);
             }
             return View("Index");
@@ -44,7 +43,10 @@ namespace AirMonitor.Web.Controllers
         [Route("installation/nearby")]
         public IActionResult Nearby(double latitude, double longitude) // TODO required queryParams
         {
-            var installations = _integration.GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude));
+            var installations = _integration
+                .GetAllNearby(InstallationGetAllNearbyCommand.Create(latitude, longitude))
+                .Select(InstallationViewModel.Success)
+                .ToHashSet();
             return View(InstallationNearbyViewModel.Success(latitude, longitude, installations));
         }
     }

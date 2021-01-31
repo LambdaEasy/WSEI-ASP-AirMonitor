@@ -10,7 +10,7 @@
 {
     @foreach (var installation in Model.Installations)
     {
-        <h3>@installation.Address.DisplayAddress1</h3>
+        @await Html.PartialAsync("Installation/InstallationSharedView", @installation)
     }
 }
 else

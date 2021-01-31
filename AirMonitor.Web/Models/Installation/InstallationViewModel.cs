@@ -9,9 +9,6 @@ namespace AirMonitor.Web.Models.Installation
     {
         private readonly InstallationDto _installation;
         private readonly InstallationError _error;
-        
-        public string SearchQueryName { get; set; }
-        public string SearchQueryValue { get; set; }
 
         public InstallationDto Installation
             => _installation ?? throw new AggregateException("Attempted to access Success data on failure.");
@@ -19,21 +16,25 @@ namespace AirMonitor.Web.Models.Installation
         public InstallationError Error
             => _error ?? throw new AggregateException("Attempted to access Failure data on success.");
 
-        private InstallationViewModel(string searchQueryName,
-                                      string searchQueryValue,
-                                      InstallationDto installation)
+        public string Title
+            => $"Installation ({Installation.ExternalId};{Installation.Id})";
+        
+        public string Location
+            => $"Located at ({Installation.Location.Latitude}, {Installation.Location.Longitude})";
+        
+        public string Address
+            => $"Near address {Installation.Address.DisplayAddress1}, {Installation.Address.DisplayAddress2}";
+
+        public string Sponsor
+            => $"Founded by {Installation.Sponsor.Name}";
+
+        private InstallationViewModel(InstallationDto installation)
         {
-            this.SearchQueryName = searchQueryName;
-            this.SearchQueryValue = searchQueryValue;
             this._installation = installation;
         }
         
-        private InstallationViewModel(string searchQueryName,
-                                      string searchQueryValue,
-                                      InstallationError error)
+        private InstallationViewModel(InstallationError error)
         {
-            this.SearchQueryName = searchQueryName;
-            this.SearchQueryValue = searchQueryValue;
             this._error = error;
         }
 
@@ -41,21 +42,15 @@ namespace AirMonitor.Web.Models.Installation
 
         public bool IsFailure => !IsSuccess;
 
-        public static InstallationViewModel Success(string searchQueryName,
-                                                    string searchQueryValue,
-                                                    InstallationDto installation)
-            => new InstallationViewModel(searchQueryName, searchQueryValue, installation);
+        public static InstallationViewModel Success(InstallationDto installation)
+            => new InstallationViewModel(installation);
         
-        public static InstallationViewModel Failure(string searchQueryName,
-                                                    string searchQueryValue,
-                                                    InstallationError error)
-            => new InstallationViewModel(searchQueryName, searchQueryValue, error);
+        public static InstallationViewModel Failure(InstallationError error)
+            => new InstallationViewModel(error);
 
-        public static InstallationViewModel OfResult(string searchQueryName,
-                                                     string searchQueryValue,
-                                                     Either<InstallationError, InstallationDto> result)
+        public static InstallationViewModel OfResult(Either<InstallationError, InstallationDto> result)
             => result.IsLeft
-             ? Failure(searchQueryName, searchQueryValue, result.GetLeft)
-             : Success(searchQueryName, searchQueryValue, result.Get);
+             ? Failure(result.GetLeft)
+             : Success(result.Get);
     }
 }

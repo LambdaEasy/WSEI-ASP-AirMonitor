@@ -7,16 +7,16 @@ namespace AirMonitor.Web.Models.Installation
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public ISet<InstallationDto> Installations { get; set; }
+        public ISet<InstallationViewModel> Installations { get; set; }
 
         public InstallationNearbyViewModel(double latitude, double longitude)
         {
             this.Latitude = latitude;
             this.Longitude = longitude;
-            this.Installations = new HashSet<InstallationDto>();
+            this.Installations = new HashSet<InstallationViewModel>();
         }
         
-        public InstallationNearbyViewModel(double latitude, double longitude, ISet<InstallationDto> installations)
+        public InstallationNearbyViewModel(double latitude, double longitude, ISet<InstallationViewModel> installations)
         {
             this.Latitude = latitude;
             this.Longitude = longitude;
@@ -25,7 +25,7 @@ namespace AirMonitor.Web.Models.Installation
 
         public static InstallationNearbyViewModel Success(double latitude,
                                                           double longitude,
-                                                          ISet<InstallationDto> installations)
+                                                          ISet<InstallationViewModel> installations)
             => new InstallationNearbyViewModel(latitude, longitude, installations);
     }
 }
