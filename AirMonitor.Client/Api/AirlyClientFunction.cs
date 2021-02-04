@@ -8,6 +8,7 @@ namespace AirMonitor.Client.Api
         #region Fields
 
         private const string ApiGetInstallationsPrefix = "installations/nearest";
+        private const string ApiGetMeasurementByInstallationId = "measurements/installation";
         
         private readonly AirlyClientFunctionType _type;
 
@@ -30,6 +31,8 @@ namespace AirMonitor.Client.Api
                 {
                     case AirlyClientFunctionType.GetInstallationsNearest:
                         return ApiGetInstallationsPrefix;
+                    case AirlyClientFunctionType.GetMeasurementByInstallationId:
+                        return ApiGetMeasurementByInstallationId;
                     default:
                         throw new ArgumentException($"Unsupported Airly api function={_type}");
                 }
@@ -46,7 +49,8 @@ namespace AirMonitor.Client.Api
 
         public enum AirlyClientFunctionType
         {
-            GetInstallationsNearest
+            GetInstallationsNearest,
+            GetMeasurementByInstallationId
         }
 
         #endregion

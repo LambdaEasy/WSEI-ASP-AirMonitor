@@ -4,7 +4,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AirMonitor.Client.Api;
 using AirMonitor.Client.Api.Request.Installation;
+using AirMonitor.Client.Api.Request.Measurement;
 using AirMonitor.Client.Api.Response.Installation;
+using AirMonitor.Client.Api.Response.Measurement;
 using AirMonitor.Client.Util;
 using AirMonitor.Util.Flow;
 using Newtonsoft.Json;
@@ -42,6 +44,22 @@ namespace AirMonitor.Client.Client
                     string query = AirlyClientUrlBuilder.GetQuery(request.ToQueryParams());
                     string url = _options.GetUrl(AirlyClientFunction.GetInstallationsNearest, query);
                     return GetHttpResponseAsync<IEnumerable<GetInstallationsNearestResponse>>(url);
+                }
+            );
+        }
+
+        public async Task<Either<AirlyClientError, GetMeasurementByInstallationIdResponse>> GetMeasurementByInstallationId(GetMeasurementByInstallationIdRequest request)
+        {
+            return await TracedOperation.CallAsync
+            (
+                "AirlyClient",
+                AirlyClientFunction.AirlyClientFunctionType.GetMeasurementByInstallationId,
+                request,
+                () =>
+                {
+                    string query = AirlyClientUrlBuilder.GetQuery(request.ToQueryParams());
+                    string url = _options.GetUrl(AirlyClientFunction.GetInstallationsNearest, query);
+                    return GetHttpResponseAsync<GetMeasurementByInstallationIdResponse>(url);
                 }
             );
         }
