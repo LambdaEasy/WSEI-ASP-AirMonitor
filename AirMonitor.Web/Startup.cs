@@ -1,6 +1,7 @@
 using AirMonitor.Client;
 using AirMonitor.Core;
 using AirMonitor.Core.Installation;
+using AirMonitor.Core.Measurement;
 using AirMonitor.Infrastructure.Service;
 using AirMonitor.Infrastructure.Service.Client;
 using AirMonitor.Persistence;
@@ -27,11 +28,14 @@ namespace AirMonitor.Web
             ClientConfig clientConfig = new ClientConfig();
             Configuration.Bind("ClientConfig", clientConfig);
 
-            IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(connectionString);
+            AirMonitorDbContext db = InstallationPersistenceDiFactory.CreateDbContext(connectionString);
+            IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(db);
+            IMeasurementRepository measurementRepository = InstallationPersistenceDiFactory.CreateMeasurementRepository(db);
             IAirlyClient client = AirlyClientFactory.Create(clientConfig);
 
             // TODO log
             services.AddSingleton<IInstallationRepository>(installationRepository);
+            services.AddSingleton<IMeasurementRepository>(measurementRepository);
             services.AddSingleton<IAirlyClient>(client);
             services.AddSingleton<IInstallationClient, AirlyClientWrapper>();
             services.AddSingleton<IInstallationFacade, InstallationService>();
