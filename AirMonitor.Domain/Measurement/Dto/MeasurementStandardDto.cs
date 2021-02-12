@@ -8,12 +8,14 @@ namespace AirMonitor.Domain.Measurement.Dto
     {
         #region Fields
 
+        public long Id => _id;
         public string Name => _name;
         public MeasurementValueType Pollutant => _pollutant;
         public double Limit => _limit;
         public double Percent => _percent;
         public string Averaging => _averaging;
 
+        private readonly long _id;
         private readonly string _name;
         private readonly MeasurementValueType _pollutant;
         private readonly double _limit;
@@ -24,12 +26,14 @@ namespace AirMonitor.Domain.Measurement.Dto
 
         #region Constructors
 
-        private MeasurementStandardDto(string name,
+        private MeasurementStandardDto(long id,
+                                       string name,
                                        MeasurementValueType pollutant,
                                        double limit,
                                        double percent,
                                        string averaging)
         {
+            this._id = id;
             this._name = name;
             this._pollutant = pollutant;
             this._limit = limit;
@@ -51,7 +55,8 @@ namespace AirMonitor.Domain.Measurement.Dto
             {
                 return true;
             }
-            return _name == other._name
+            return _id == other._id
+                && _name == other._name
                 && Equals(_pollutant, other._pollutant)
                 && _limit.Equals(other._limit)
                 && _percent.Equals(other._percent)
@@ -82,6 +87,7 @@ namespace AirMonitor.Domain.Measurement.Dto
 
         public override string ToString()
             => $"{GetType().Name}(" +
+                   $"id={Id}, " +
                    $"name={Name}, " +
                    $"pollutant={Pollutant}, " +
                    $"limit={Limit}, " +
@@ -92,7 +98,12 @@ namespace AirMonitor.Domain.Measurement.Dto
         #region StaticConstructors
 
         public static MeasurementStandardDto FromDomain(MeasurementStandard domain)
-            => new MeasurementStandardDto(domain.Name, domain.Pollutant, domain.Limit, domain.Percent, domain.Averaging);
+            => new MeasurementStandardDto(domain.Id ?? throw new ArgumentException("Id is null"),
+                                          domain.Name,
+                                          domain.Pollutant,
+                                          domain.Limit,
+                                          domain.Percent,
+                                          domain.Averaging);
 
         public static ISet<MeasurementStandardDto> FromDomain(IEnumerable<MeasurementStandard> domain)
             => domain.Select(FromDomain).ToHashSet();

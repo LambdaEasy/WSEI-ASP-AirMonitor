@@ -8,6 +8,7 @@ namespace AirMonitor.Domain.Measurement.Dto
     {
         #region Fields
 
+        public long Id => _id;
         public MeasurementIndexName Name => _name;
         public double Value => _value;
         public MeasurementIndexLevel Level => _level;
@@ -15,6 +16,7 @@ namespace AirMonitor.Domain.Measurement.Dto
         public string Advice => _advice;
         public string Color => _color;
 
+        private readonly long _id;
         private readonly MeasurementIndexName _name;
         private readonly double _value;
         private readonly MeasurementIndexLevel _level;
@@ -26,13 +28,15 @@ namespace AirMonitor.Domain.Measurement.Dto
 
         #region Constructors
 
-        private MeasurementIndexDto(MeasurementIndexName name,
+        private MeasurementIndexDto(long id,
+                                    MeasurementIndexName name,
                                     double value,
                                     MeasurementIndexLevel level,
                                     string description,
                                     string advice,
                                     string color)
         {
+            this._id = id;
             this._name = name;
             this._value = value;
             this._level = level;
@@ -55,7 +59,8 @@ namespace AirMonitor.Domain.Measurement.Dto
             {
                 return true;
             }
-            return _name == other._name
+            return _id == other._id
+                && _name == other._name
                 && _value.Equals(other._value)
                 && _level == other._level
                 && _description == other._description
@@ -81,12 +86,13 @@ namespace AirMonitor.Domain.Measurement.Dto
         }
 
         public override int GetHashCode()
-            => HashCode.Combine((int) _name, _value, (int) _level, _description, _advice, _color);
+            => HashCode.Combine(Id, (int) _name, _value, (int) _level, _description, _advice, _color);
 
         #endregion
 
         public override string ToString()
-            => $"{GetType().Name}(" + 
+            => $"{GetType().Name}(" +
+                   $"id={Id}, " +
                    $"name={Name}, " +
                    $"value={Value}, " +
                    $"level={Level}, " +
@@ -98,7 +104,8 @@ namespace AirMonitor.Domain.Measurement.Dto
         #region StaticConstructors
 
         public static MeasurementIndexDto FromDomain(MeasurementIndex domain)
-            => new MeasurementIndexDto(domain.Name,
+            => new MeasurementIndexDto(domain.Id ?? throw new ArgumentException("Id is null"),
+                                       domain.Name,
                                        domain.Value,
                                        domain.Level,
                                        domain.Description,

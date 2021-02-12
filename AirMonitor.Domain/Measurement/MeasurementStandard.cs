@@ -6,6 +6,7 @@ namespace AirMonitor.Domain.Measurement
     {
         #region Fields
 
+        public long? Id { get; set; }
         public string Name { get; set; }
         public MeasurementValueType Pollutant { get; set; }
         public double Limit { get; set; }
@@ -16,12 +17,14 @@ namespace AirMonitor.Domain.Measurement
 
         #region Constructors
 
-        public MeasurementStandard(string name,
+        public MeasurementStandard(long? id,
+                                   string name,
                                    MeasurementValueType pollutant,
                                    double limit,
                                    double percent,
                                    string averaging)
         {
+            this.Id = id;
             this.Name = name;
             this.Pollutant = pollutant;
             this.Limit = limit;
@@ -43,7 +46,8 @@ namespace AirMonitor.Domain.Measurement
             {
                 return true;
             }
-            return Name == other.Name
+            return Id == other.Id
+                && Name == other.Name
                 && Pollutant == other.Pollutant
                 && Limit.Equals(other.Limit)
                 && Percent.Equals(other.Percent)
@@ -68,9 +72,19 @@ namespace AirMonitor.Domain.Measurement
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(Name, Pollutant, Limit, Percent, Averaging);
+            => HashCode.Combine(Id, Name, Pollutant, Limit, Percent, Averaging);
 
         #endregion
+
+        public override string ToString()
+            => $"{GetType().Name}(" +
+                   $"id={Id}, " +
+                   $"name={Name}, " +
+                   $"pollutant={Pollutant}, " +
+                   $"limit={Limit}, " +
+                   $"percent={Percent}, " +
+                   $"averaging={Averaging}" +
+               ")";
 
         #region StaticConstructors
 
@@ -79,7 +93,7 @@ namespace AirMonitor.Domain.Measurement
                                                  double limit,
                                                  double percent,
                                                  string averaging)
-            => new MeasurementStandard(name, MeasurementValueType.GetForName(pollutantName), limit, percent, averaging);
+            => new MeasurementStandard(null, name, MeasurementValueType.GetForName(pollutantName), limit, percent, averaging);
 
         #endregion
     }

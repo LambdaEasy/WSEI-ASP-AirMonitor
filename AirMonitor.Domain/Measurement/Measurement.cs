@@ -7,6 +7,7 @@ namespace AirMonitor.Domain.Measurement
     {
         #region Fields
         
+        public long? Id { get; set; }
         public DateTimeOffset UpdateDateTime { get; set; }
         public DateTimeOffset FromDateTime { get; set; }
         public DateTimeOffset TillDateTime { get; set; }
@@ -20,13 +21,15 @@ namespace AirMonitor.Domain.Measurement
 
         #region Constructors
 
-        public Measurement(DateTimeOffset updateDateTime,
+        public Measurement(long? id,
+                           DateTimeOffset updateDateTime,
                            DateTimeOffset fromDateTime,
                            DateTimeOffset tillDateTime,
                            ISet<MeasurementValue> values,
                            ISet<MeasurementIndex> indexes,
                            ISet<MeasurementStandard> standards)
         {
+            this.Id = id;
             this.UpdateDateTime = updateDateTime;
             this.FromDateTime = fromDateTime;
             this.TillDateTime = tillDateTime;
@@ -49,7 +52,8 @@ namespace AirMonitor.Domain.Measurement
             {
                 return true;
             }
-            return UpdateDateTime.Equals(other.UpdateDateTime)
+            return Id.Equals(other.Id)
+                && UpdateDateTime.Equals(other.UpdateDateTime)
                 && FromDateTime.Equals(other.FromDateTime) 
                 && TillDateTime.Equals(other.TillDateTime) 
                 && Equals(Values, other.Values) 
@@ -75,12 +79,13 @@ namespace AirMonitor.Domain.Measurement
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(UpdateDateTime, FromDateTime, TillDateTime, Values, Indexes, Standards);
+            => HashCode.Combine(Id, UpdateDateTime, FromDateTime, TillDateTime, Values, Indexes, Standards);
 
         #endregion
 
         public override string ToString()
             => $"{GetType().Name}(" +
+                   $"id={Id}, " +
                    $"updateDateTime={UpdateDateTime}, " +
                    $"fromDateTime={FromDateTime}, " +
                    $"tillDateTime={TillDateTime}, " +
@@ -91,7 +96,13 @@ namespace AirMonitor.Domain.Measurement
 
         #region StaticConstructors
 
-        
+        public static Measurement Create(DateTimeOffset updateDateTime,
+                                         DateTimeOffset fromDateTime,
+                                         DateTimeOffset tillDateTime,
+                                         ISet<MeasurementValue> values,
+                                         ISet<MeasurementIndex> indexes,
+                                         ISet<MeasurementStandard> standards)
+            => new Measurement(null, updateDateTime, fromDateTime, tillDateTime, values, indexes, standards);
 
         #endregion
     }

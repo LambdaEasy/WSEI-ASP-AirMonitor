@@ -6,6 +6,7 @@ namespace AirMonitor.Domain.Measurement
     {
         #region Fields
 
+        public long? Id { get; set; }
         public MeasurementIndexName Name { get; set; }
         public double Value { get; set; }
         public MeasurementIndexLevel Level { get; set; }
@@ -17,13 +18,15 @@ namespace AirMonitor.Domain.Measurement
 
         #region Constructors
 
-        public MeasurementIndex(MeasurementIndexName name,
+        public MeasurementIndex(long? id,
+                                MeasurementIndexName name,
                                 double value,
                                 MeasurementIndexLevel level,
                                 string description,
                                 string advice,
                                 string color)
         {
+            this.Id = id;
             this.Name = name;
             this.Value = value;
             this.Level = level;
@@ -46,7 +49,8 @@ namespace AirMonitor.Domain.Measurement
             {
                 return true;
             }
-            return Name == other.Name
+            return Id == other.Id
+                && Name == other.Name
                 && Value.Equals(other.Value)
                 && Level == other.Level
                 && Description == other.Description
@@ -72,12 +76,13 @@ namespace AirMonitor.Domain.Measurement
         }
 
         public override int GetHashCode()
-            => HashCode.Combine((int) Name, Value, (int) Level, Description, Advice, Color);
+            => HashCode.Combine(Id, (int) Name, Value, (int) Level, Description, Advice, Color);
 
         #endregion
 
         public override string ToString()
             => $"{GetType().Name}(" +
+                   $"id={Id}, " +
                    $"name={Name}, " +
                    $"value={Value}, " +
                    $"level={Level}, " +
@@ -88,7 +93,13 @@ namespace AirMonitor.Domain.Measurement
 
         #region StaticConstructors
 
-
+        public static MeasurementIndex Create(MeasurementIndexName name,
+                                              double value,
+                                              MeasurementIndexLevel level,
+                                              string description,
+                                              string advice,
+                                              string color)
+            => new MeasurementIndex(null, name, value, level, description, advice, color);
 
         #endregion
     }

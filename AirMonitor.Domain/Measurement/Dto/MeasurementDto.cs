@@ -6,7 +6,8 @@ namespace AirMonitor.Domain.Measurement.Dto
     public class MeasurementDto : IEquatable<MeasurementDto>
     {
         #region Fields
-        
+
+        public long Id => _id;
         public DateTimeOffset UpdateDateTime => _updateDateTime;
         public DateTimeOffset FromDateTime => _fromDateTime;
         public DateTimeOffset TillDateTime => _tillDateTim;
@@ -14,6 +15,7 @@ namespace AirMonitor.Domain.Measurement.Dto
         public ISet<MeasurementIndexDto> Indexes => _indexes;
         public ISet<MeasurementStandardDto> Standards => _standards;
 
+        private readonly long _id;
         private readonly DateTimeOffset _updateDateTime;
         private readonly DateTimeOffset _fromDateTime;
         private readonly DateTimeOffset _tillDateTim;
@@ -25,13 +27,15 @@ namespace AirMonitor.Domain.Measurement.Dto
 
         #region Constructors
 
-        private MeasurementDto(DateTimeOffset updateDateTime,
+        private MeasurementDto(long id,
+                               DateTimeOffset updateDateTime,
                                DateTimeOffset fromDateTime,
                                DateTimeOffset tillDateTim,
                                ISet<MeasurementValueDto> values,
                                ISet<MeasurementIndexDto> indexes,
                                ISet<MeasurementStandardDto> standards)
         {
+            this._id = id;
             this._updateDateTime = updateDateTime;
             this._fromDateTime = fromDateTime;
             this._tillDateTim = tillDateTim;
@@ -54,7 +58,8 @@ namespace AirMonitor.Domain.Measurement.Dto
             {
                 return true;
             }
-            return _updateDateTime.Equals(other._updateDateTime)
+            return _id.Equals(other._id)
+                && _updateDateTime.Equals(other._updateDateTime)
                 && _fromDateTime.Equals(other._fromDateTime)
                 && _tillDateTim.Equals(other._tillDateTim)
                 && Equals(_values, other._values)
@@ -80,12 +85,13 @@ namespace AirMonitor.Domain.Measurement.Dto
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(_updateDateTime, _fromDateTime, _tillDateTim, _values, _indexes, _standards);
+            => HashCode.Combine(_id, _updateDateTime, _fromDateTime, _tillDateTim, _values, _indexes, _standards);
 
         #endregion
 
         public override string ToString()
             => $"{GetType().Name}(" +
+                   $"id={Id}, " +
                    $"updateDateTime={UpdateDateTime}, " +
                    $"fromDateTime={FromDateTime}, " +
                    $"tillDateTime={TillDateTime}, " +
@@ -97,7 +103,8 @@ namespace AirMonitor.Domain.Measurement.Dto
         #region StaticConstructors
 
         public static MeasurementDto FromDomain(Measurement domain)
-            => new MeasurementDto(domain.UpdateDateTime,
+            => new MeasurementDto(domain.Id ?? throw new ArgumentException("Id is null"),
+                                  domain.UpdateDateTime,
                                   domain.FromDateTime,
                                   domain.TillDateTime,
                                   MeasurementValueDto.FromDomain(domain.Values),

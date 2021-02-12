@@ -8,9 +8,11 @@ namespace AirMonitor.Domain.Measurement.Dto
     {
         #region Fields
 
+        public long Id => _id;
         public MeasurementValueType Type => _type;
         public double Value => _value;
 
+        private readonly long _id;
         private readonly MeasurementValueType _type;
         private readonly double _value;
 
@@ -18,10 +20,11 @@ namespace AirMonitor.Domain.Measurement.Dto
 
         #region Constructors
 
-        private MeasurementValueDto(MeasurementValueType type, double value)
+        private MeasurementValueDto(long id, MeasurementValueType type, double value)
         {
-            _type = type;
-            _value = value;
+            this._id = id;
+            this._type = type;
+            this._value = value;
         }
 
         #endregion
@@ -38,7 +41,7 @@ namespace AirMonitor.Domain.Measurement.Dto
             {
                 return true;
             }
-            return Equals(_type, other._type) && _value.Equals(other._value);
+            return Equals(_id, other._id) && Equals(_type, other._type) && _value.Equals(other._value);
         }
 
         public override bool Equals(object obj)
@@ -64,12 +67,14 @@ namespace AirMonitor.Domain.Measurement.Dto
         #endregion
 
         public override string ToString()
-            => $"{GetType().Name}(type={Type}, value={Value})";
+            => $"{GetType().Name}(id={Id}, type={Type}, value={Value})";
 
         #region StaticConstructors
 
         public static MeasurementValueDto FromDomain(MeasurementValue domain)
-            => new MeasurementValueDto(domain.Type, domain.Value);
+            => new MeasurementValueDto(domain.Id ?? throw new ArgumentException("Id is null"),
+                                       domain.Type,
+                                       domain.Value);
 
         public static ISet<MeasurementValueDto> FromDomain(IEnumerable<MeasurementValue> domain)
             => domain.Select(FromDomain).ToHashSet();

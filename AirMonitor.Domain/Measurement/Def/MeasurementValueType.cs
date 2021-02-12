@@ -30,6 +30,9 @@ namespace AirMonitor.Domain.Measurement
         public static MeasurementValueType GetForName(MeasurementValueTypeName name)
             => EnumMap.First(type => type.Name == name) ?? throw new ArgumentException("Invalid MeasurementValueType name.");
 
+        public static MeasurementValueType GetForNameCode(int nameCode)
+            => GetForName((MeasurementValueTypeName) nameCode);
+
         public static MeasurementValueType PM1 = new MeasurementValueType(MeasurementValueTypeName.PM1, "PM1", "µg/m³");
         public static MeasurementValueType PM10 = new MeasurementValueType(MeasurementValueTypeName.PM10, "PM10", "µg/m³");
         public static MeasurementValueType PM25 = new MeasurementValueType(MeasurementValueTypeName.PM25, "PM25", "µg/m³");
@@ -76,6 +79,7 @@ namespace AirMonitor.Domain.Measurement
     
         #region Fields
 
+        public int NameCode => (int) _name;
         public MeasurementValueTypeName Name => _name;
         public string Label => _label;
         public string Unit => _unit;

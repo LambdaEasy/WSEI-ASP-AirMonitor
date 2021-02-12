@@ -6,6 +6,7 @@ namespace AirMonitor.Domain.Measurement
     {
         #region Fields
 
+        public long? Id { get; set; }
         public MeasurementValueType Type { get; set; }
         public double Value { get; set; }
 
@@ -13,8 +14,9 @@ namespace AirMonitor.Domain.Measurement
 
         #region Constructors
 
-        public MeasurementValue(MeasurementValueType type, double value)
+        public MeasurementValue(long? id, MeasurementValueType type, double value)
         {
+            this.Id = id;
             this.Type = type;
             this.Value = Value;
         }
@@ -33,7 +35,7 @@ namespace AirMonitor.Domain.Measurement
             {
                 return true;
             }
-            return Equals(Type, other.Type) && Value.Equals(other.Value);
+            return Equals(Id, other.Id) && Equals(Type, other.Type) && Value.Equals(other.Value);
         }
 
         public override bool Equals(object obj)
@@ -59,12 +61,12 @@ namespace AirMonitor.Domain.Measurement
         #endregion
 
         public override string ToString()
-            => $"{GetType().Name}(type={Type}, value={Value})";
+            => $"{GetType().Name}(id={Id}, type={Type}, value={Value})";
 
         #region StaticConstructors
 
         public static MeasurementValue Create(MeasurementValueTypeName typeName, double value)
-            => new MeasurementValue(MeasurementValueType.GetForName(typeName), value);
+            => new MeasurementValue(null, MeasurementValueType.GetForName(typeName), value);
 
         #endregion
     }
