@@ -33,6 +33,9 @@ namespace AirMonitor.Core.Installation
 
         #endregion
 
+        public override string ToString()
+            => $"{GetType().Name}(code={_code}, message={_message})";
+
         #region StaticConstructors
 
         public InstallationError UnknownError() 
