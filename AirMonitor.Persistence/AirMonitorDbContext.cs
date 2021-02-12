@@ -1,4 +1,5 @@
 ﻿using AirMonitor.Persistence.Installation.Entity;
+using AirMonitor.Persistence.Measurement.Entity;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -12,6 +13,11 @@ namespace AirMonitor.Persistence
         public DbSet<InstallationEntity> Installations { get; set; }
         public DbSet<InstallationAddressEntity> InstallationAddresses { get; set; }
         public DbSet<InstallationSponsorEntity> InstallationSponsors { get; set; }
+        
+        public DbSet<MeasurementEntity> Measurements { get; set; }
+        public DbSet<MeasurementIndexEntity> MeasurementIndexes { get; set; }
+        public DbSet<MeasurementStandardEntity> MeasurementStandards { get; set; }
+        public DbSet<MeasurementValueEntity> MeasurementValues { get; set; }
 
         #endregion
         
