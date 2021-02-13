@@ -12,6 +12,8 @@ namespace AirMonitor.Core.Measurement
 
         Option<MeasurementDomain> FindById(long id);
 
+        Option<MeasurementDomain> FindByExternalId(long externalId);
+
         ISet<MeasurementDomain> FindAll();
 
         bool DeleteById(long id);
