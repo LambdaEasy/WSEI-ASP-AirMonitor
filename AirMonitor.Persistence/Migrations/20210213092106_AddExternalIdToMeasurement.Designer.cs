@@ -4,14 +4,16 @@ using AirMonitor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirMonitor.Persistence.Migrations
 {
     [DbContext(typeof(AirMonitorDbContext))]
-    partial class AirMonitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210213092106_AddExternalIdToMeasurement")]
+    partial class AddExternalIdToMeasurement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
