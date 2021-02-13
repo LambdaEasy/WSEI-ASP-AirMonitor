@@ -29,6 +29,10 @@ namespace AirMonitor.Persistence.Measurement.Repository
             .Of(_measurementDao.FindById(id))
             .Map(entity => entity.ToDomain());
 
+        public Option<MeasurementDomain> FindByExternalId(long externalId) => Option<MeasurementDomain>
+            .Of(_measurementDao.FindByExternalId(externalId))
+            .Map(entity => entity.ToDomain());
+
         public ISet<MeasurementDomain> FindAll()
             => _measurementDao.FindAll()
                               .Select(entity => entity.ToDomain())

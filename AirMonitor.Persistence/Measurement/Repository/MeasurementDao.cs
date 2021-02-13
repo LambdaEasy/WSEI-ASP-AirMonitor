@@ -47,6 +47,14 @@ namespace AirMonitor.Persistence.Measurement.Repository
                                .Include(entity => entity.Values)
                                .SingleOrDefault(entity => entity.Id == id);
 
+        public MeasurementEntity FindByExternalId(long? externalId)
+            => externalId == null
+             ? null
+             : _db.Measurements.Include(entity => entity.Indexes)
+                               .Include(entity => entity.Standards)
+                               .Include(entity => entity.Values)
+                               .SingleOrDefault(entity => entity.InstallationExternalId == externalId);
+
         public bool DeleteById(long id)
         {
             MeasurementEntity entity = FindById(id);
