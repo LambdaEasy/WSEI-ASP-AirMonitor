@@ -92,219 +92,219 @@ namespace AirMonitor.Core.Measurement.Command
                                             standards);
 
         #endregion
-    }
-    
-    #region Value
-
-    public readonly struct Value : IEquatable<Value>
-    {
-        #region Fields
-
-        private readonly MeasurementValueTypeName _typeName;
-        private readonly double _value;
-
-        #endregion
-
-        #region Constructors
-
-        private Value(MeasurementValueTypeName typeName, double value)
-        {
-            _typeName = typeName;
-            _value = value;
-        }
-
-        #endregion
-
-        #region Equals&HashCode
-
-        public bool Equals(Value other)
-            => _typeName == other._typeName && _value.Equals(other._value);
-
-        public override bool Equals(object obj)
-            => obj is Value other && Equals(other);
-
-        public override int GetHashCode()
-            => HashCode.Combine((int) _typeName, _value);
-
-        #endregion
-
-        public override string ToString()
-            => $"{GetType().Name}(typeName={_typeName}, value={_value})";
         
-        public MeasurementValue ToDomain()
-            => MeasurementValue.Create(_typeName, _value);
+        #region Value
 
-        #region StaticConstructors
-
-        public static Value Create(MeasurementValueTypeName typeName, double value)
-            => new Value(typeName, value);
-
-
-        public static ISet<MeasurementValue> ToDomain(ISet<Value> commands)
-            => commands.Select(command => command.ToDomain()).ToHashSet();
-
-        #endregion
-    }
-
-    #endregion
-
-    #region Index
-
-    public readonly struct Index : IEquatable<Index>
-    {
-        #region Fields
-
-        private readonly MeasurementIndexName _name;
-        private readonly double _value;
-        private readonly MeasurementIndexLevel _level;
-        private readonly string _description;
-        private readonly string _advice;
-        private readonly string _color;
-
-        #endregion
-
-        #region Constructors
-
-        private Index(MeasurementIndexName name,
-                      double value,
-                      MeasurementIndexLevel level,
-                      string description,
-                      string advice,
-                      string color)
+        public readonly struct Value : IEquatable<Value>
         {
-            _name = name;
-            _value = value;
-            _level = level;
-            _description = description;
-            _advice = advice;
-            _color = color;
+            #region Fields
+
+            private readonly MeasurementValueTypeName _typeName;
+            private readonly double _value;
+
+            #endregion
+
+            #region Constructors
+
+            private Value(MeasurementValueTypeName typeName, double value)
+            {
+                _typeName = typeName;
+                _value = value;
+            }
+
+            #endregion
+
+            #region Equals&HashCode
+
+            public bool Equals(Value other)
+                => _typeName == other._typeName && _value.Equals(other._value);
+
+            public override bool Equals(object obj)
+                => obj is Value other && Equals(other);
+
+            public override int GetHashCode()
+                => HashCode.Combine((int) _typeName, _value);
+
+            #endregion
+
+            public override string ToString()
+                => $"{GetType().Name}(typeName={_typeName}, value={_value})";
+            
+            public MeasurementValue ToDomain()
+                => MeasurementValue.Create(_typeName, _value);
+
+            #region StaticConstructors
+
+            public static Value Create(MeasurementValueTypeName typeName, double value)
+                => new Value(typeName, value);
+
+
+            public static ISet<MeasurementValue> ToDomain(ISet<Value> commands)
+                => commands.Select(command => command.ToDomain()).ToHashSet();
+
+            #endregion
         }
 
         #endregion
 
-        #region Equals&HashCode
+        #region Index
 
-        public bool Equals(Index other)
-            => _name == other._name
-            && _value.Equals(other._value)
-            && _level == other._level
-            && _description == other._description
-            && _advice == other._advice
-            && _color == other._color;
-
-        public override bool Equals(object obj)
-            => obj is Index other && Equals(other);
-
-        public override int GetHashCode()
-            => HashCode.Combine((int) _name, _value, (int) _level, _description, _advice, _color);
-
-        #endregion
-
-        public override string ToString()
-            => $"{GetType().Name}(" +
-                   $"name={_name}, " +
-                   $"value={_value}, " +
-                   $"level={_level}, " +
-                   $"description={_description}, " +
-                   $"advice={_advice}, " +
-                   $"color={_color}" +
-               ")";
-
-        public MeasurementIndex ToDomain()
-            => MeasurementIndex.Create(_name, _value, _level, _description, _advice, _color);
-
-        #region StaticConstructors
-
-        public static Index Create(MeasurementIndexName name,
-                                   double value,
-                                   MeasurementIndexLevel level,
-                                   string description,
-                                   string advice,
-                                   string color)
-            => new Index(name, value, level, description, advice, color);
-
-        public static ISet<MeasurementIndex> ToDomain(ISet<Index> commands)
-            => commands.Select(command => command.ToDomain()).ToHashSet();
-
-        #endregion
-    }
-
-    #endregion
-
-    #region Standard
-
-    public readonly struct Standard : IEquatable<Standard>
-    {
-        #region Fields
-
-        private readonly string _name;
-        private readonly MeasurementValueTypeName _pollutant;
-        private readonly double _limit;
-        private readonly double _percent;
-        private readonly string _averaging;
-
-        #endregion
-
-        #region Constructors
-
-        private Standard(string name,
-                         MeasurementValueTypeName pollutant,
-                         double limit,
-                         double percent,
-                         string averaging)
+        public readonly struct Index : IEquatable<Index>
         {
-            _name = name;
-            _pollutant = pollutant;
-            _limit = limit;
-            _percent = percent;
-            _averaging = averaging;
+            #region Fields
+
+            private readonly MeasurementIndexName _name;
+            private readonly double _value;
+            private readonly MeasurementIndexLevel _level;
+            private readonly string _description;
+            private readonly string _advice;
+            private readonly string _color;
+
+            #endregion
+
+            #region Constructors
+
+            private Index(MeasurementIndexName name,
+                          double value,
+                          MeasurementIndexLevel level,
+                          string description,
+                          string advice,
+                          string color)
+            {
+                _name = name;
+                _value = value;
+                _level = level;
+                _description = description;
+                _advice = advice;
+                _color = color;
+            }
+
+            #endregion
+
+            #region Equals&HashCode
+
+            public bool Equals(Index other)
+                => _name == other._name
+                && _value.Equals(other._value)
+                && _level == other._level
+                && _description == other._description
+                && _advice == other._advice
+                && _color == other._color;
+
+            public override bool Equals(object obj)
+                => obj is Index other && Equals(other);
+
+            public override int GetHashCode()
+                => HashCode.Combine((int) _name, _value, (int) _level, _description, _advice, _color);
+
+            #endregion
+
+            public override string ToString()
+                => $"{GetType().Name}(" +
+                       $"name={_name}, " +
+                       $"value={_value}, " +
+                       $"level={_level}, " +
+                       $"description={_description}, " +
+                       $"advice={_advice}, " +
+                       $"color={_color}" +
+                   ")";
+
+            public MeasurementIndex ToDomain()
+                => MeasurementIndex.Create(_name, _value, _level, _description, _advice, _color);
+
+            #region StaticConstructors
+
+            public static Index Create(MeasurementIndexName name,
+                                       double value,
+                                       MeasurementIndexLevel level,
+                                       string description,
+                                       string advice,
+                                       string color)
+                => new Index(name, value, level, description, advice, color);
+
+            public static ISet<MeasurementIndex> ToDomain(ISet<Index> commands)
+                => commands.Select(command => command.ToDomain()).ToHashSet();
+
+            #endregion
         }
 
         #endregion
 
-        #region Equals&HashCode
+        #region Standard
 
-        public bool Equals(Standard other)
-            => _name == other._name
-            && Equals(_pollutant, other._pollutant)
-            && _limit.Equals(other._limit)
-            && _percent.Equals(other._percent)
-            && _averaging == other._averaging;
+        public readonly struct Standard : IEquatable<Standard>
+        {
+            #region Fields
 
-        public override bool Equals(object obj)
-            => obj is Standard other && Equals(other);
+            private readonly string _name;
+            private readonly MeasurementValueTypeName _pollutant;
+            private readonly double _limit;
+            private readonly double _percent;
+            private readonly string _averaging;
 
-        public override int GetHashCode()
-            => HashCode.Combine(_name, _pollutant, _limit, _percent, _averaging);
+            #endregion
 
-        #endregion
+            #region Constructors
 
-        public override string ToString()
-            => $"{GetType().Name}(" +
-                   $"name={_name}, " +
-                   $"pollutant={_pollutant}, " +
-                   $"limit={_limit}, " +
-                   $"percent={_percent}, " +
-                   $"averaging={_averaging}" +
-               ")";
-        
-        public MeasurementStandard ToDomain()
-            => MeasurementStandard.Create(_name, _pollutant, _limit, _percent, _averaging);
+            private Standard(string name,
+                             MeasurementValueTypeName pollutant,
+                             double limit,
+                             double percent,
+                             string averaging)
+            {
+                _name = name;
+                _pollutant = pollutant;
+                _limit = limit;
+                _percent = percent;
+                _averaging = averaging;
+            }
 
-        #region StaticConstructors
+            #endregion
 
-        public static Standard Create(string name,
-                                      MeasurementValueTypeName pollutant,
-                                      double limit,
-                                      double percent,
-                                      string averaging)
-            => new Standard(name, pollutant, limit, percent, averaging);
+            #region Equals&HashCode
 
-        public static ISet<MeasurementStandard> ToDomain(ISet<Standard> commands)
-            => commands.Select(command => command.ToDomain()).ToHashSet();
+            public bool Equals(Standard other)
+                => _name == other._name
+                && Equals(_pollutant, other._pollutant)
+                && _limit.Equals(other._limit)
+                && _percent.Equals(other._percent)
+                && _averaging == other._averaging;
+
+            public override bool Equals(object obj)
+                => obj is Standard other && Equals(other);
+
+            public override int GetHashCode()
+                => HashCode.Combine(_name, _pollutant, _limit, _percent, _averaging);
+
+            #endregion
+
+            public override string ToString()
+                => $"{GetType().Name}(" +
+                       $"name={_name}, " +
+                       $"pollutant={_pollutant}, " +
+                       $"limit={_limit}, " +
+                       $"percent={_percent}, " +
+                       $"averaging={_averaging}" +
+                   ")";
+            
+            public MeasurementStandard ToDomain()
+                => MeasurementStandard.Create(_name, _pollutant, _limit, _percent, _averaging);
+
+            #region StaticConstructors
+
+            public static Standard Create(string name,
+                                          MeasurementValueTypeName pollutant,
+                                          double limit,
+                                          double percent,
+                                          string averaging)
+                => new Standard(name, pollutant, limit, percent, averaging);
+
+            public static ISet<MeasurementStandard> ToDomain(ISet<Standard> commands)
+                => commands.Select(command => command.ToDomain()).ToHashSet();
+
+            #endregion
+        }
 
         #endregion
     }
-
-    #endregion
 }
