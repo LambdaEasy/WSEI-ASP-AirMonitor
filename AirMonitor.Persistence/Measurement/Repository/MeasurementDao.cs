@@ -39,6 +39,14 @@ namespace AirMonitor.Persistence.Measurement.Repository
                                .Include(entity => entity.Values)
                                .ToHashSet();
 
+        public ISet<MeasurementEntity> FindAllWhereTillDateTimeIsBeforeNow()
+            => _db.Measurements.Include(entity => entity.Indexes)
+                               .Include(entity => entity.Standards)
+                               .Include(entity => entity.Values)
+                               // TODO [q/opt] does it include clause in query?
+                               .Where(entity => entity.TillDateTime < DateTimeOffset.Now)
+                               .ToHashSet();
+
         public MeasurementEntity FindById(long? id)
             => id == null
              ? null
@@ -54,6 +62,11 @@ namespace AirMonitor.Persistence.Measurement.Repository
                                .Include(entity => entity.Standards)
                                .Include(entity => entity.Values)
                                .SingleOrDefault(entity => entity.InstallationExternalId == externalId);
+
+        public DateTimeOffset? FindTillDateTimeByInstallationExternalId(long installationExternalId)
+            => _db.Measurements.Where(entity => entity.InstallationExternalId == installationExternalId)
+                               .Select(entity => entity.TillDateTime)
+                               .SingleOrDefault(null);
 
         public bool DeleteById(long id)
         {

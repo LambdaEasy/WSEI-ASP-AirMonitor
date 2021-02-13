@@ -16,6 +16,10 @@ namespace AirMonitor.Core.Measurement
 
         ISet<MeasurementDomain> FindAll();
 
+        ISet<MeasurementDomain> FindAllOutdated();
+
+        bool IsOutdatedByInstallationExternalId(long installationExternalId);
+
         bool DeleteById(long id);
     }
 }

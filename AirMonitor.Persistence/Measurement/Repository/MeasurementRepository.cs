@@ -38,6 +38,17 @@ namespace AirMonitor.Persistence.Measurement.Repository
                               .Select(entity => entity.ToDomain())
                               .ToHashSet();
 
+        public ISet<MeasurementDomain> FindAllOutdated()
+            => _measurementDao.FindAllWhereTillDateTimeIsBeforeNow()
+                              .Select(entity => entity.ToDomain())
+                              .ToHashSet();
+
+        public bool IsOutdatedByInstallationExternalId(long installationExternalId)
+        {
+            DateTimeOffset? tillDateTime = _measurementDao.FindTillDateTimeByInstallationExternalId(installationExternalId);
+            return tillDateTime != null && tillDateTime < DateTimeOffset.Now;
+        }
+
         public bool DeleteById(long id)
             => _measurementDao.DeleteById(id);
         

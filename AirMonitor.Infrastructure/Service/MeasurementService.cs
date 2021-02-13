@@ -74,6 +74,30 @@ namespace AirMonitor.Infrastructure.Service
             );
         }
 
+        public ISet<MeasurementDto> GetAllOutdatedMeasurement()
+        {
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.GetAllOutdatedMeasurements,
+                "none",
+                () => _repository.FindAllOutdated()
+                                 .Select(MeasurementDto.FromDomain)
+                                 .ToHashSet()
+            );
+        }
+        
+        public bool IsOutdatedByInstallationExternalId(long installationExternalId)
+        {
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.IsOutdatedByInstallationExternalId,
+                installationExternalId,
+                () => _repository.IsOutdatedByInstallationExternalId(installationExternalId)
+            );
+        }
+
         public Either<MeasurementError, MeasurementDto> Update(MeasurementUpdateCommand command)
         {
             throw new System.NotImplementedException();
@@ -96,6 +120,8 @@ namespace AirMonitor.Infrastructure.Service
         CreateMeasurement,
         GetIMeasurementById,
         GetAllMeasurements,
+        GetAllOutdatedMeasurements,
+        IsOutdatedByInstallationExternalId,
         UpdateMeasurement,
         DeleteMeasurement
     }
