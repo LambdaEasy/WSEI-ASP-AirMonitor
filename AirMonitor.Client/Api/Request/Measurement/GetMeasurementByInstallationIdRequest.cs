@@ -57,7 +57,7 @@ namespace AirMonitor.Client.Api.Request.Measurement
 
         #region StaticConstructors
 
-        public GetMeasurementByInstallationIdRequest Create(long installationId)
+        public static GetMeasurementByInstallationIdRequest Create(long installationId)
             => new GetMeasurementByInstallationIdRequest(DefaultIncludeWind, DefaultIndexType, installationId);
 
         #endregion

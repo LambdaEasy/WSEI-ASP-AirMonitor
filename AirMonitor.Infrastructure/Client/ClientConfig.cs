@@ -1,6 +1,6 @@
 using AirMonitor.Client;
 
-namespace AirMonitor.Infrastructure.Service.Client
+namespace AirMonitor.Infrastructure.Client
 {
     public class ClientConfig : IAirlyClientConfig
     {
