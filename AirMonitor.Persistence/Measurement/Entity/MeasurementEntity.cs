@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AirMonitor.Persistence.Installation.Entity;
 using MeasurementDomain = AirMonitor.Domain.Measurement.Measurement;
 
 namespace AirMonitor.Persistence.Measurement.Entity
@@ -13,6 +14,9 @@ namespace AirMonitor.Persistence.Measurement.Entity
 
         [Key]
         public long? Id { get; set; }
+        
+        [Required]
+        public long InstallationExternalId { get; set; }
         
         [Required]
         public DateTimeOffset UpdateDateTime { get; set; }
@@ -37,6 +41,7 @@ namespace AirMonitor.Persistence.Measurement.Entity
         }
 
         public MeasurementEntity(long? id,
+                                 long installationExternalId,
                                  DateTimeOffset updateDateTime,
                                  DateTimeOffset fromDateTime,
                                  DateTimeOffset tillDateTime,
@@ -45,6 +50,7 @@ namespace AirMonitor.Persistence.Measurement.Entity
                                  ISet<MeasurementStandardEntity> standards)
         {
             this.Id = id;
+            this.InstallationExternalId = installationExternalId;
             this.UpdateDateTime = updateDateTime;
             this.FromDateTime = fromDateTime;
             this.TillDateTime = tillDateTime;
@@ -68,6 +74,7 @@ namespace AirMonitor.Persistence.Measurement.Entity
                 return true;
             }
             return Id == other.Id
+                && InstallationExternalId == other.InstallationExternalId
                 && UpdateDateTime.Equals(other.UpdateDateTime)
                 && FromDateTime.Equals(other.FromDateTime)
                 && TillDateTime.Equals(other.TillDateTime)
@@ -94,13 +101,14 @@ namespace AirMonitor.Persistence.Measurement.Entity
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(Id, UpdateDateTime, FromDateTime, TillDateTime, Values, Indexes, Standards);
+            => HashCode.Combine(Id, InstallationExternalId, UpdateDateTime, FromDateTime, TillDateTime, Values, Indexes, Standards);
 
         #endregion
 
         public override string ToString()
             => $"{GetType().Name}(" + 
                    $"id={Id}, " +
+                   $"installationExternalId={InstallationExternalId}, " +
                    $"updateDateTime={UpdateDateTime}, " +
                    $"fromDateTime={FromDateTime}, " +
                    $"tillDateTime={TillDateTime}, " +
@@ -111,6 +119,7 @@ namespace AirMonitor.Persistence.Measurement.Entity
 
         public MeasurementDomain ToDomain()
             => new MeasurementDomain(Id,
+                                     InstallationExternalId,
                                      UpdateDateTime,
                                      FromDateTime,
                                      TillDateTime,
@@ -122,6 +131,7 @@ namespace AirMonitor.Persistence.Measurement.Entity
 
         public static MeasurementEntity FromDomain(MeasurementDomain domain)
             => new MeasurementEntity(domain.Id,
+                                     domain.InstallationExternalId,
                                      domain.UpdateDateTime,
                                      domain.FromDateTime,
                                      domain.TillDateTime,
