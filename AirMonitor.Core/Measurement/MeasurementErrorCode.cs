@@ -2,6 +2,10 @@ namespace AirMonitor.Core.Measurement
 {
     public enum MeasurementErrorCode
     {
-        Unknown
+        Unknown,
+        DuplicateId,
+        DuplicateExternalId,
+        NotFoundById,
+        NotFoundByExternalId
     }
 }

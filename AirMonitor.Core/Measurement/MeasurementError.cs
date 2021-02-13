@@ -3,9 +3,12 @@ namespace AirMonitor.Core.Measurement
     public class MeasurementError
     {
         # region Constants
-
-        // TODO example below
-        // private const string ClientErrorMessagePattern = "Installation could not be loaded from external client, reason = {0}.";
+        
+        private const MeasurementErrorCode DefaultCode = MeasurementErrorCode.Unknown;
+        private const string DefaultMessage = "Unknown MeasurementError occured.";
+        private const string DuplicateMessagePattern = "Measurement already exists for {0} = {1}.";
+        private const string NotFoundMessagePattern = "Measurement not found by {0} = {1}.";
+        
 
         #endregion
 
@@ -34,9 +37,20 @@ namespace AirMonitor.Core.Measurement
 
         #region StaticConstructors
 
-        // TODO example below
-        // public InstallationError UnknownError() 
-        //     => new InstallationError(DefaultCode, DefaultMessage);
+        public static MeasurementError UnknownError() 
+            => new MeasurementError(DefaultCode, DefaultMessage);
+
+        public static MeasurementError DuplicateId(long id)
+            => new MeasurementError(MeasurementErrorCode.DuplicateId, string.Format(DuplicateMessagePattern, "id", id));
+
+        public static MeasurementError DuplicateExternalId(long externalId)
+            => new MeasurementError(MeasurementErrorCode.DuplicateExternalId, string.Format(DuplicateMessagePattern, "externalId", externalId));
+
+        public static MeasurementError NotFoundById(long id)
+            => new MeasurementError(MeasurementErrorCode.NotFoundById, string.Format(NotFoundMessagePattern, "id", id));
+
+        public static MeasurementError NotFoundByExternalId(long externalId)
+            => new MeasurementError(MeasurementErrorCode.NotFoundByExternalId, string.Format(NotFoundMessagePattern, "externalId", externalId));
 
         #endregion
     }
