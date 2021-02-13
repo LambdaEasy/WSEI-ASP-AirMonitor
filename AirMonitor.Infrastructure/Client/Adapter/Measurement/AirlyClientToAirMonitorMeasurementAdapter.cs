@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using AirMonitor.Client.Api;
 using AirMonitor.Client.Api.Response.Measurement;
+using AirMonitor.Core.Measurement;
 using AirMonitor.Core.Measurement.Command;
 using AirMonitor.Infrastructure.Client.Adapter.Mapping;
 using ApiMeasurementValue = AirMonitor.Client.Api.Response.Measurement.Data.MeasurementValue;
@@ -11,14 +13,16 @@ namespace AirMonitor.Infrastructure.Client.Adapter.Measurement
 {
     public static class AirlyClientToAirMonitorMeasurementAdapter
     {
-        public static MeasurementCreateCommand FromApi(long installationExternalId, GetMeasurementByInstallationIdResponse api)
-            => MeasurementCreateCommand.Create(installationExternalId,
-                                               api.Current.FromDateTime,
+        public static MeasurementCreateCommand FromApi(GetMeasurementByInstallationIdResponse api)
+            => MeasurementCreateCommand.Create(api.Current.FromDateTime,
                                                api.Current.TillDateTime,
                                                ValueAdapter.FromApi(api.Current.Values),
                                                IndexAdapter.FromApi(api.Current.Indexes),
                                                StandardAdapter.FromApi(api.Current.Standards));
-        
+
+        public static MeasurementError ErrorFromResponse(AirlyClientError errorResponse)
+            => MeasurementError.ClientError(errorResponse.Message);
+
         private static class ValueAdapter
         {
             internal static MeasurementCreateCommand.Value FromApi(ApiMeasurementValue api)

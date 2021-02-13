@@ -8,7 +8,7 @@ namespace AirMonitor.Core.Measurement
         private const string DefaultMessage = "Unknown MeasurementError occured.";
         private const string DuplicateMessagePattern = "Measurement already exists for {0} = {1}.";
         private const string NotFoundMessagePattern = "Measurement not found by {0} = {1}.";
-        
+        private const string ClientErrorMessagePattern = "Measurement could not be loaded from external client, reason = {0}.";
 
         #endregion
 
@@ -51,6 +51,9 @@ namespace AirMonitor.Core.Measurement
 
         public static MeasurementError NotFoundByExternalId(long externalId)
             => new MeasurementError(MeasurementErrorCode.NotFoundByExternalId, string.Format(NotFoundMessagePattern, "externalId", externalId));
+
+        public static MeasurementError ClientError(string clientErrorMessage)
+            => new MeasurementError(MeasurementErrorCode.ClientError, string.Format(ClientErrorMessagePattern, clientErrorMessage));
 
         #endregion
     }

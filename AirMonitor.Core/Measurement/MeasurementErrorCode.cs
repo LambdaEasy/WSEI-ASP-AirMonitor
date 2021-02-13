@@ -6,6 +6,7 @@ namespace AirMonitor.Core.Measurement
         DuplicateId,
         DuplicateExternalId,
         NotFoundById,
-        NotFoundByExternalId
+        NotFoundByExternalId,
+        ClientError
     }
 }

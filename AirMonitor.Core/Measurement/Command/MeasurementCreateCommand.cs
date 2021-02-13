@@ -6,13 +6,20 @@ using MeasurementDomain = AirMonitor.Domain.Measurement.Measurement;
 
 namespace AirMonitor.Core.Measurement.Command
 {
-    public readonly struct MeasurementCreateCommand : IEquatable<MeasurementCreateCommand>
+    public class MeasurementCreateCommand : IEquatable<MeasurementCreateCommand>
     {
         #region Fields
 
-        public long ExternalId => _installationExternalId;
+        public long ExternalId
+        {
+            get => _installationExternalId ?? throw new ArgumentException("InstallationExternalId in null");
+            set
+            {
+                _installationExternalId = value;
+            }
+        }
 
-        private readonly long _installationExternalId;
+        private long? _installationExternalId;
         private readonly DateTimeOffset _fromDateTime;
         private readonly DateTimeOffset _tillDateTime;
         private readonly ISet<Value> _values;
@@ -23,14 +30,12 @@ namespace AirMonitor.Core.Measurement.Command
 
         #region Constructors
 
-        private MeasurementCreateCommand(long installationExternalId,
-                                         DateTimeOffset fromDateTime,
+        private MeasurementCreateCommand(DateTimeOffset fromDateTime,
                                          DateTimeOffset tillDateTime,
                                          ISet<Value> values,
                                          ISet<Index> indexes,
                                          ISet<Standard> standards)
         {
-            _installationExternalId = installationExternalId;
             _fromDateTime = fromDateTime;
             _tillDateTime = tillDateTime;
             _values = values;
@@ -43,15 +48,39 @@ namespace AirMonitor.Core.Measurement.Command
         #region Equals&HashCode
 
         public bool Equals(MeasurementCreateCommand other)
-            => _installationExternalId == other._installationExternalId
-            && _fromDateTime.Equals(other._fromDateTime)
-            && _tillDateTime.Equals(other._tillDateTime)
-            && Equals(_values, other._values)
-            && Equals(_indexes, other._indexes)
-            && Equals(_standards, other._standards);
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return _installationExternalId == other._installationExternalId
+                && _fromDateTime.Equals(other._fromDateTime)
+                && _tillDateTime.Equals(other._tillDateTime)
+                && Equals(_values, other._values)
+                && Equals(_indexes, other._indexes)
+                && Equals(_standards, other._standards);
+        }
 
         public override bool Equals(object obj)
-            => obj is MeasurementCreateCommand other && Equals(other);
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            return Equals((MeasurementCreateCommand) obj);
+        }
 
         public override int GetHashCode()
             => HashCode.Combine(_installationExternalId, _fromDateTime, _tillDateTime, _values, _indexes, _standards);
@@ -69,7 +98,7 @@ namespace AirMonitor.Core.Measurement.Command
                ")";
         
         public MeasurementDomain ToDomain()
-            => MeasurementDomain.Create(_installationExternalId,
+            => MeasurementDomain.Create(_installationExternalId ?? throw new ArgumentException("Attempted to create MeasurementDomain without setting InstallationExternalId"),
                                         _fromDateTime,
                                         _tillDateTime,
                                         Value.ToDomain(_values),
@@ -78,14 +107,12 @@ namespace AirMonitor.Core.Measurement.Command
 
         #region StaticConstructors
 
-        public static MeasurementCreateCommand Create(long installationExternalId,
-                                                      DateTimeOffset fromDateTime,
+        public static MeasurementCreateCommand Create(DateTimeOffset fromDateTime,
                                                       DateTimeOffset tillDateTime,
                                                       ISet<Value> values,
                                                       ISet<Index> indexes,
                                                       ISet<Standard> standards)
-            => new MeasurementCreateCommand(installationExternalId,
-                                            fromDateTime,
+            => new MeasurementCreateCommand(fromDateTime,
                                             tillDateTime,
                                             values,
                                             indexes,

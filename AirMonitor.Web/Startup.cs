@@ -24,21 +24,26 @@ namespace AirMonitor.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Db
             string connectionString = Configuration.GetConnectionString("Development");
-            ClientConfig clientConfig = new ClientConfig();
-            Configuration.Bind("ClientConfig", clientConfig);
-
             AirMonitorDbContext db = InstallationPersistenceDiFactory.CreateDbContext(connectionString);
             IInstallationRepository installationRepository = InstallationPersistenceDiFactory.CreateInstallationRepository(db);
             IMeasurementRepository measurementRepository = InstallationPersistenceDiFactory.CreateMeasurementRepository(db);
-            IAirlyClient client = AirlyClientFactory.Create(clientConfig);
-
-            // TODO log
             services.AddSingleton<IInstallationRepository>(installationRepository);
             services.AddSingleton<IMeasurementRepository>(measurementRepository);
+
+            // Client
+            ClientConfig clientConfig = new ClientConfig();
+            Configuration.Bind("ClientConfig", clientConfig);
+            IAirlyClient client = AirlyClientFactory.Create(clientConfig);
             services.AddSingleton<IAirlyClient>(client);
-            services.AddSingleton<IInstallationClient, AirlyClientWrapper>();
+            services.AddSingleton<AirlyClientWrapper>();
+            services.AddSingleton<IInstallationClient>(x => x.GetRequiredService<AirlyClientWrapper>());
+            services.AddSingleton<IMeasurementClient>(x => x.GetRequiredService<AirlyClientWrapper>());
+            
+            // Service
             services.AddSingleton<IInstallationFacade, InstallationService>();
+            services.AddSingleton<IMeasurementFacade, MeasurementService>();
             services.AddSingleton<IIntegrationFacade, IntegrationService>();
 
             services.AddControllersWithViews();

@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using AirMonitor.Core.Measurement.Command;
 using AirMonitor.Util.Flow;
-using MeasurementDomain = AirMonitor.Domain.Measurement.Measurement;
 
 namespace AirMonitor.Core.Measurement
 {
@@ -12,6 +10,6 @@ namespace AirMonitor.Core.Measurement
         /// </summary>
         /// <param name="command">Command consisting of all required data to perform api search.</param>
         /// <returns>Either a list of measurements or an error that occured.</returns>
-        Either<MeasurementError, IEnumerable<MeasurementCreateCommand>> GetInstallationsNearby(MeasurementGetByInstallationExternalIdCommand command);
+        Either<MeasurementError, MeasurementCreateCommand> GetMeasurementByInstallationId(MeasurementGetByInstallationExternalIdCommand command);
     }
 }

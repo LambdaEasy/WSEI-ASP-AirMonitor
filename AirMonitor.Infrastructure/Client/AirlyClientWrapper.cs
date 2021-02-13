@@ -4,13 +4,16 @@ using System.Threading.Tasks;
 using AirMonitor.Client;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
+using AirMonitor.Core.Measurement;
+using AirMonitor.Core.Measurement.Command;
 using AirMonitor.Infrastructure.Client.Adapter.Installation;
+using AirMonitor.Infrastructure.Client.Adapter.Measurement;
 using AirMonitor.Util.Flow;
 using Microsoft.Extensions.Logging;
 
 namespace AirMonitor.Infrastructure.Client
 {
-    public class AirlyClientWrapper : IInstallationClient
+    public class AirlyClientWrapper : IInstallationClient, IMeasurementClient
     {
         private readonly ILogger<AirlyClientWrapper> _logger;
 
@@ -37,6 +40,23 @@ namespace AirMonitor.Infrastructure.Client
             .Map(AirlyClientToAirMonitorInstallationAdapter.FromResponse)
             .MapLeft(AirlyClientToAirMonitorInstallationAdapter.ErrorFromResponse);
         }
+        
+        public Either<MeasurementError, MeasurementCreateCommand> GetMeasurementByInstallationId(MeasurementGetByInstallationExternalIdCommand command)
+        {
+            return TracedOperation.CallSync
+            (
+                _logger,
+                ClientOperationType.GetMeasurementByInstallationId,
+                command,
+                () => SynchronizeHttpCall // TODO move this to `TracedOperationClass` cos like that it kills a purpose of this class xD
+                      (
+                          _airlyClient.GetMeasurementByInstallationId(AirMonitorToAirlyClientMeasurementAdapter.FromCommand(command))
+                      )
+            )
+            .Map(AirlyClientToAirMonitorMeasurementAdapter.FromApi)
+            .Peek(createCommand => createCommand.ExternalId = command.InstallationExternalId)
+            .MapLeft(AirlyClientToAirMonitorMeasurementAdapter.ErrorFromResponse);
+        }
 
         private static T SynchronizeHttpCall<T>(Task<T> httpCall)
             => httpCall.GetAwaiter().GetResult();
@@ -44,6 +64,7 @@ namespace AirMonitor.Infrastructure.Client
 
     public enum ClientOperationType
     {
-        GetNearbyInstallations
+        GetNearbyInstallations,
+        GetMeasurementByInstallationId
     }
 }
