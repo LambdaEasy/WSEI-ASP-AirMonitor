@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using AirMonitor.Domain.Measurement;
-
 using ApiMeasurementValueTypeName = AirMonitor.Client.Api.Response.Measurement.Definition.MeasurementValueTypeName;
 using ApiMeasurementIndexName = AirMonitor.Client.Api.Response.Measurement.Definition.MeasurementIndexName;
 using ApiMeasurementIndexLevel = AirMonitor.Client.Api.Response.Measurement.Definition.MeasurementIndexLevel;
 
-namespace AirMonitor.Infrastructure.Measurement.Client.Adapter.Mapping
+namespace AirMonitor.Infrastructure.Client.Adapter.Mapping
 {
     public static class AirlyClientToAirMonitorEnumMapping
     {

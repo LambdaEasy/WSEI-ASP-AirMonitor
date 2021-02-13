@@ -1,8 +1,8 @@
 using AirMonitor.Client.Api.Request.Measurement;
 
-namespace AirMonitor.Infrastructure.Measurement.Client.Adapter
+namespace AirMonitor.Infrastructure.Client.Adapter.Measurement
 {
-    public static class AirMonitorToAirlyClientAdapter
+    public static class AirMonitorToAirlyClientMeasurementAdapter
     {
         // TODO includeWind, indexType
         public static GetMeasurementByInstallationIdRequest FromCommand(long installationExternalId)

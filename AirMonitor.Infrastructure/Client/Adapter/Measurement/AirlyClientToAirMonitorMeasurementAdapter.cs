@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Client.Api.Response.Measurement;
 using AirMonitor.Core.Measurement.Command;
-using AirMonitor.Infrastructure.Measurement.Client.Adapter.Mapping;
+using AirMonitor.Infrastructure.Client.Adapter.Mapping;
 using ApiMeasurementValue = AirMonitor.Client.Api.Response.Measurement.Data.MeasurementValue;
 using ApiMeasurementIndex = AirMonitor.Client.Api.Response.Measurement.Data.MeasurementIndex;
 using ApiMeasurementStandard = AirMonitor.Client.Api.Response.Measurement.Data.MeasurementStandard;
 
-namespace AirMonitor.Infrastructure.Measurement.Client.Adapter
+namespace AirMonitor.Infrastructure.Client.Adapter.Measurement
 {
-    public static class AirlyClientToAirMonitorAdapter
+    public static class AirlyClientToAirMonitorMeasurementAdapter
     {
         public static MeasurementCreateCommand FromApi(long installationExternalId, GetMeasurementByInstallationIdResponse api)
             => MeasurementCreateCommand.Create(installationExternalId,

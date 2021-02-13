@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using AirMonitor.Client;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
-using AirMonitor.Infrastructure.Service.Client.Adapter;
+using AirMonitor.Infrastructure.Client.Adapter.Installation;
 using AirMonitor.Util.Flow;
 using Microsoft.Extensions.Logging;
 
-namespace AirMonitor.Infrastructure.Service.Client
+namespace AirMonitor.Infrastructure.Client
 {
     public class AirlyClientWrapper : IInstallationClient
     {
@@ -31,11 +31,11 @@ namespace AirMonitor.Infrastructure.Service.Client
                 command,
                 () => SynchronizeHttpCall // TODO move this to `TracedOperationClass` cos like that it kills a purpose of this class xD
                       (
-                          _airlyClient.GetInstallationsNearest(AirMonitorToAirlyClientAdapter.FromCommand(command))
+                          _airlyClient.GetInstallationsNearest(AirMonitorToAirlyClientInstallationAdapter.FromCommand(command))
                       )
             )
-            .Map(AirlyClientToAirMonitorAdapter.FromResponse)
-            .MapLeft(AirlyClientToAirMonitorAdapter.ErrorFromResponse);
+            .Map(AirlyClientToAirMonitorInstallationAdapter.FromResponse)
+            .MapLeft(AirlyClientToAirMonitorInstallationAdapter.ErrorFromResponse);
         }
 
         private static T SynchronizeHttpCall<T>(Task<T> httpCall)

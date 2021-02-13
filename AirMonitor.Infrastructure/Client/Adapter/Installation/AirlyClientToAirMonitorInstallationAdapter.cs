@@ -5,9 +5,9 @@ using AirMonitor.Client.Api.Response.Installation;
 using AirMonitor.Core.Installation;
 using AirMonitor.Core.Installation.Command;
 
-namespace AirMonitor.Infrastructure.Service.Client.Adapter
+namespace AirMonitor.Infrastructure.Client.Adapter.Installation
 {
-    public static class AirlyClientToAirMonitorAdapter
+    public static class AirlyClientToAirMonitorInstallationAdapter
     {
         public static IEnumerable<InstallationCreateCommand> FromResponse(IEnumerable<GetInstallationsNearestResponse> response)
             => response.Select(FromResponse)
