@@ -15,7 +15,7 @@ namespace AirMonitor.Infrastructure.Service
 {
     public class AirlyIntegrationService : IIntegrationFacade
     {
-        private readonly ILogger<_Obsolete_IntegrationService> _logger;
+        private readonly ILogger<AirlyIntegrationService> _logger;
 
         private readonly IInstallationFacade _installationCore;
         private readonly IInstallationClient _installationIntegration;
@@ -23,7 +23,7 @@ namespace AirMonitor.Infrastructure.Service
         private readonly IMeasurementFacade _measurementCore;
         private readonly IMeasurementClient _measurementIntegration;
 
-        public AirlyIntegrationService(ILogger<_Obsolete_IntegrationService> logger,
+        public AirlyIntegrationService(ILogger<AirlyIntegrationService> logger,
                                        IInstallationFacade installationCore,
                                        IInstallationClient installationIntegration,
                                        IMeasurementFacade measurementCore,
