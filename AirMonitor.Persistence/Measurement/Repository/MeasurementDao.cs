@@ -65,16 +65,20 @@ namespace AirMonitor.Persistence.Measurement.Repository
 
         // TODO SingleOrDefault and FirstOrDefault throw ArgumentNullException...
         //      How to query nullable limited to 1 query?
-        public DateTimeOffset? FindTillDateTimeByInstallationExternalId(long installationExternalId)
+        public DateTimeOffset? FindUpdateDateTimeByInstallationExternalId(long installationExternalId)
         {
             try
             {
                 var resultSet = _db.Measurements
                     .Where(entity => entity.InstallationExternalId == installationExternalId)
-                    .Select(entity => entity.TillDateTime);
+                    .Select(entity => entity.UpdateDateTime);
                 return resultSet.SingleOrDefault();
             }
             catch (ArgumentNullException e)
+            {
+                return null;
+            }
+            catch (Exception e)
             {
                 return null;
             }

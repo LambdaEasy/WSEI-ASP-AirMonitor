@@ -43,10 +43,15 @@ namespace AirMonitor.Persistence.Measurement.Repository
                               .Select(entity => entity.ToDomain())
                               .ToHashSet();
 
+        // TODO endTime
         public bool IsOutdatedByInstallationExternalId(long installationExternalId)
         {
-            DateTimeOffset? tillDateTime = _measurementDao.FindTillDateTimeByInstallationExternalId(installationExternalId);
-            return tillDateTime != null && tillDateTime < DateTimeOffset.Now;
+            DateTimeOffset? optionalUpdateDateTime = _measurementDao.FindUpdateDateTimeByInstallationExternalId(installationExternalId);
+            if (optionalUpdateDateTime == null)
+            {
+                return false;
+            }
+            return optionalUpdateDateTime.GetValueOrDefault().AddHours(1) < DateTimeOffset.Now;
         }
 
         public bool ExistsByExternalId(long installationExternalId)

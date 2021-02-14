@@ -110,7 +110,7 @@ namespace AirMonitor.Infrastructure.Service
                 {
                     if (_repository.ExistsByExternalId(command.ExternalId))
                     {
-                        _repository.DeleteById(command.ExternalId);
+                        _repository.DeleteByExternalId(command.ExternalId);
                     }
                     return Create(command);
                 }
