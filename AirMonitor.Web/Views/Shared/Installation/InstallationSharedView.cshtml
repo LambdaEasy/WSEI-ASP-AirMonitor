@@ -1,14 +1,24 @@
 @model AirMonitor.Web.Models.Installation.InstallationViewModel
 
-@if (Model.IsSuccess)
-{
-    <h3>@Model.Title</h3>
-    <p>@Model.Location</p>
-    <p>@Model.Address</p>
-    <p>@Model.Sponsor</p>
-}
-else
-{
-    <h3>Error displaying Installation: @Model.Error.Code &#128549</h3>
-    <p>@Model.Error.Message</p>
-}
+<div class="list-group-item list-group-item-action flex-column align-items-start">
+    @if (Model.IsSuccess)
+    {
+        <div class="d-flex w-100 justify-content-between">
+            <h3 class="mb-1">@Model.Title</h3>
+            <img src="@Model.Installation.Sponsor.LogoUri" alt="Sponsor's Logo" style="height: 5em">
+        </div>
+        <p class="mb-1">@Model.Location</p>
+        <p class="mb-1">@Model.Address</p>
+        <a href="@Model.Installation.Sponsor.LinkUri" class="stretched-link" target="_blank">@Model.Sponsor</a>
+                                                                                           
+        @await Html.PartialAsync("Measurement/MeasurementSharedView", @Model.Measurement)
+    }
+    else
+    {
+        <div class="d-flex w-100 justify-content-between">
+            <h3 class="mb-1">Error displaying Installation: @Model.Error.Code</h3>
+            <p>&#128549</p>
+        </div>
+        <p class="mb-1">@Model.Error.Message</p>
+    }
+</div>

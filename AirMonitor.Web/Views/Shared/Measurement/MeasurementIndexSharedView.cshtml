@@ -1,0 +1,10 @@
+@model AirMonitor.Domain.Measurement.Dto.MeasurementIndexDto
+
+<div class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">@Model.Name</h5>
+      <small style="color:@Model.Color">@Model.Value (@Model.Level)</small>
+    </div>
+    <p class="mb-1">@Model.Advice</p>
+    <small>@Model.Description</small>
+</div>

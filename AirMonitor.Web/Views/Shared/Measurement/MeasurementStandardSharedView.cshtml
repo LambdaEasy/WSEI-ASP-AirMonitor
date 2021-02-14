@@ -1,0 +1,10 @@
+@model AirMonitor.Domain.Measurement.Dto.MeasurementStandardDto;
+
+<div class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">@Model.Name</h5>
+        <p class="mb-1">@Model.Pollutant.Label</p>
+    </div>
+    <p class="mb-1">Limit: @Model.Limit @Model.Pollutant.Unit</p>
+    <p class="mb-1">Averaging: @Model.Averaging @Model.Pollutant.Unit</p>
+</div>

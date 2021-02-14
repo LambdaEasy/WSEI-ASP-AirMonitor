@@ -1,0 +1,26 @@
+@model AirMonitor.Domain.Measurement.Dto.MeasurementDto
+
+<h4>Indexes</h4>
+<div class="list-group">
+    @foreach (var index in @Model.Indexes)
+    {
+        @await Html.PartialAsync("Measurement/MeasurementIndexSharedView", @index)
+    }
+</div>
+        
+
+<h4>Standards</h4>
+<div class="list-group">
+    @foreach (var standard in @Model.Standards)
+    {
+        @await Html.PartialAsync("Measurement/MeasurementStandardSharedView", @standard)
+    }
+</div>
+
+<h4>Values</h4>
+<div class="list-group">
+    @foreach (var value in @Model.Values)
+    {
+        @await Html.PartialAsync("Measurement/MeasurementValueSharedView", @value)
+    }
+</div>
