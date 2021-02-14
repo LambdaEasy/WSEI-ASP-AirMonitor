@@ -74,10 +74,10 @@ namespace AirMonitor.Infrastructure.Service
             => commands.Select(command =>
                        {
                            // TODO flat map on Either
-                           var saveResult = _installationCore.CreateInstallation(command);
+                           var saveResult = this.CreateInstallation(command);
                            if (saveResult.IsLeft)
                            {
-                               return _installationCore.GetByExternalId(command.ExternalId); // TODO update instead
+                               return this.GetByExternalId(command.ExternalId); // TODO update instead
                            }
                            return saveResult;
                        })

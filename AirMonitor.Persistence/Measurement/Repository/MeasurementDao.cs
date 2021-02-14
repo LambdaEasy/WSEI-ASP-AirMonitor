@@ -63,10 +63,22 @@ namespace AirMonitor.Persistence.Measurement.Repository
                                .Include(entity => entity.Values)
                                .SingleOrDefault(entity => entity.InstallationExternalId == externalId);
 
+        // TODO SingleOrDefault and FirstOrDefault throw ArgumentNullException...
+        //      How to query nullable limited to 1 query?
         public DateTimeOffset? FindTillDateTimeByInstallationExternalId(long installationExternalId)
-            => _db.Measurements.Where(entity => entity.InstallationExternalId == installationExternalId)
-                               .Select(entity => entity.TillDateTime)
-                               .SingleOrDefault(null);
+        {
+            try
+            {
+                var resultSet = _db.Measurements
+                    .Where(entity => entity.InstallationExternalId == installationExternalId)
+                    .Select(entity => entity.TillDateTime);
+                return resultSet.SingleOrDefault();
+            }
+            catch (ArgumentNullException e)
+            {
+                return null;
+            }
+        }
 
         public bool ExistsByExternalId(long externalId)
             => _db.Measurements.Any(entity => entity.InstallationExternalId == externalId);
