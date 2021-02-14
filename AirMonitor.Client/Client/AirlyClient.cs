@@ -58,7 +58,7 @@ namespace AirMonitor.Client.Client
                 () =>
                 {
                     string query = AirlyClientUrlBuilder.GetQuery(request.ToQueryParams());
-                    string url = _options.GetUrl(AirlyClientFunction.GetInstallationsNearest, query);
+                    string url = _options.GetUrl(AirlyClientFunction.GetMeasurementByInstallationId, query);
                     return GetHttpResponseAsync<GetMeasurementByInstallationIdResponse>(url);
                 }
             );
