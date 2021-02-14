@@ -17,8 +17,8 @@ namespace AirMonitor.Core.Measurement
         public MeasurementErrorCode Code => _code;
         public string Message => _message;
 
-        public readonly MeasurementErrorCode _code;
-        public readonly string _message;
+        private readonly MeasurementErrorCode _code;
+        private readonly string _message;
 
         #endregion
 

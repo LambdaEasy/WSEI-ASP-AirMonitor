@@ -49,9 +49,15 @@ namespace AirMonitor.Persistence.Measurement.Repository
             return tillDateTime != null && tillDateTime < DateTimeOffset.Now;
         }
 
+        public bool ExistsByExternalId(long installationExternalId)
+            => _measurementDao.ExistsByExternalId(installationExternalId);
+
         public bool DeleteById(long id)
             => _measurementDao.DeleteById(id);
-        
+
+        public bool DeleteByExternalId(long externalId)
+            => _measurementDao.DeleteByExternalId(externalId);
+
         #region Factory
 
         public static class Factory

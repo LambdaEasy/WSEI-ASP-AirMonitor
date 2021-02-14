@@ -20,6 +20,10 @@ namespace AirMonitor.Core.Measurement
 
         bool IsOutdatedByInstallationExternalId(long installationExternalId);
 
+        bool ExistsByExternalId(long installationExternalId);
+
         bool DeleteById(long id);
+        
+        bool DeleteByExternalId(long externalId);
     }
 }

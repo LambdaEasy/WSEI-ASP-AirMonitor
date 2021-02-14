@@ -60,7 +60,7 @@ namespace AirMonitor.Infrastructure.Service
             );
         }
 
-        public HashSet<InstallationDto> GetAll()
+        public ISet<InstallationDto> GetAll()
         {
             return TracedOperation.CallSync
             (
@@ -73,7 +73,7 @@ namespace AirMonitor.Infrastructure.Service
             );
         }
 
-        public HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
+        public ISet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
         {
             return TracedOperation.CallSync
             (

@@ -68,6 +68,9 @@ namespace AirMonitor.Persistence.Measurement.Repository
                                .Select(entity => entity.TillDateTime)
                                .SingleOrDefault(null);
 
+        public bool ExistsByExternalId(long externalId)
+            => _db.Measurements.Any(entity => entity.InstallationExternalId == externalId);
+
         public bool DeleteById(long id)
         {
             MeasurementEntity entity = FindById(id);
@@ -79,7 +82,19 @@ namespace AirMonitor.Persistence.Measurement.Repository
             _db.SaveChanges();
             return true;
         }
-        
+
+        public bool DeleteByExternalId(long externalId)
+        {
+            MeasurementEntity entity = FindByExternalId(externalId);
+            if (entity == null)
+            {
+                return false;
+            }
+            _db.Measurements.Remove(entity);
+            _db.SaveChanges();
+            return true;
+        }
+
         public static class Factory
         {
             public static MeasurementDao Create(AirMonitorDbContext db)

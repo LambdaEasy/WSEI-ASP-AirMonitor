@@ -98,9 +98,23 @@ namespace AirMonitor.Infrastructure.Service
             );
         }
 
-        public Either<MeasurementError, MeasurementDto> Update(MeasurementUpdateCommand command)
+        public Either<MeasurementError, MeasurementDto> Update(MeasurementCreateCommand command)
         {
-            throw new System.NotImplementedException();
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.UpdateMeasurement,
+                command,
+                // TODO refactor
+                () =>
+                {
+                    if (_repository.ExistsByExternalId(command.ExternalId))
+                    {
+                        _repository.DeleteById(command.ExternalId);
+                    }
+                    return Create(command);
+                }
+            );
         }
 
         public bool Delete(MeasurementDeleteCommand command)

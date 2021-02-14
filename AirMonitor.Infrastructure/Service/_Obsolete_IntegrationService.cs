@@ -9,17 +9,17 @@ using AirMonitor.Domain.Installation.Dto;
 using AirMonitor.Util.Flow;
 using Microsoft.Extensions.Logging;
 
-// TODO [refactor] what a mess xD
 namespace AirMonitor.Infrastructure.Service
 {
-    public class IntegrationService : IIntegrationFacade
+    [Obsolete("_Obsolete_IntegrationService was replaced by AirlyIntegrationService")]
+    public class _Obsolete_IntegrationService : IIntegrationFacade
     {
-        private readonly ILogger<IntegrationService> _logger;
+        private readonly ILogger<_Obsolete_IntegrationService> _logger;
 
         private readonly IInstallationFacade _core;
         private readonly IInstallationClient _integration;
 
-        public IntegrationService(ILogger<IntegrationService> logger,
+        public _Obsolete_IntegrationService(ILogger<_Obsolete_IntegrationService> logger,
                                   IInstallationFacade core,
                                   IInstallationClient integration)
         {
@@ -38,7 +38,7 @@ namespace AirMonitor.Infrastructure.Service
             => RunIntegration(_core.GetByExternalId(id));
 
         // TODO return either
-        public HashSet<InstallationDto> GetAll()
+        public ISet<InstallationDto> GetAll()
             => _core.GetAll()
                     .Select(Either<InstallationError, InstallationDto>.Right<InstallationError, InstallationDto>)
                     .Select(RunIntegration)
@@ -55,7 +55,7 @@ namespace AirMonitor.Infrastructure.Service
                     .ToHashSet();
 
         // TODO return either
-        public HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
+        public ISet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command)
             => _integration.GetInstallationsNearby(command)
                            // TODO createBatch
                            .Map(installations =>

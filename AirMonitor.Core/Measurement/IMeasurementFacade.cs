@@ -55,7 +55,7 @@ namespace AirMonitor.Core.Measurement
         /// </summary>
         /// <param name="command">Command containing data necessary for update.</param>
         /// <returns>Updated Measurement or error which occured</returns>
-        Either<MeasurementError, MeasurementDto> Update(MeasurementUpdateCommand command);
+        Either<MeasurementError, MeasurementDto> Update(MeasurementCreateCommand command);
         
         /// <summary>
         /// Deletes Measurement of given technical Id. Returns operation result.
