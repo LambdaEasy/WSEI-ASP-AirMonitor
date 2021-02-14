@@ -38,11 +38,24 @@ namespace AirMonitor.Core.Measurement
         ISet<MeasurementDto> GetAll();
 
         /// <summary>
+        /// Returns all stored measurements which reads are outdated.
+        /// </summary>
+        /// <returns>Set of measurements</returns>
+        ISet<MeasurementDto> GetAllOutdatedMeasurement();
+
+        /// <summary>
+        /// Checks if measurement is outdated.
+        /// </summary>
+        /// <param name="installationExternalId">Installation external identifier.</param>
+        /// <returns>Set of measurements</returns>
+        bool IsOutdatedByInstallationExternalId(long installationExternalId);
+
+        /// <summary>
         /// Updates stored Measurement data and returns new updated Measurement.
         /// </summary>
         /// <param name="command">Command containing data necessary for update.</param>
         /// <returns>Updated Measurement or error which occured</returns>
-        Either<MeasurementError, MeasurementDto> Update(MeasurementUpdateCommand command);
+        Either<MeasurementError, MeasurementDto> Update(MeasurementCreateCommand command);
         
         /// <summary>
         /// Deletes Measurement of given technical Id. Returns operation result.

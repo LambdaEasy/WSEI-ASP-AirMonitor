@@ -38,9 +38,31 @@ namespace AirMonitor.Persistence.Measurement.Repository
                               .Select(entity => entity.ToDomain())
                               .ToHashSet();
 
+        public ISet<MeasurementDomain> FindAllOutdated()
+            => _measurementDao.FindAllWhereTillDateTimeIsBeforeNow()
+                              .Select(entity => entity.ToDomain())
+                              .ToHashSet();
+
+        // TODO endTime
+        public bool IsOutdatedByInstallationExternalId(long installationExternalId)
+        {
+            DateTimeOffset? optionalUpdateDateTime = _measurementDao.FindUpdateDateTimeByInstallationExternalId(installationExternalId);
+            if (optionalUpdateDateTime == null)
+            {
+                return false;
+            }
+            return optionalUpdateDateTime.GetValueOrDefault().AddHours(1) < DateTimeOffset.Now;
+        }
+
+        public bool ExistsByExternalId(long installationExternalId)
+            => _measurementDao.ExistsByExternalId(installationExternalId);
+
         public bool DeleteById(long id)
             => _measurementDao.DeleteById(id);
-        
+
+        public bool DeleteByExternalId(long externalId)
+            => _measurementDao.DeleteByExternalId(externalId);
+
         #region Factory
 
         public static class Factory

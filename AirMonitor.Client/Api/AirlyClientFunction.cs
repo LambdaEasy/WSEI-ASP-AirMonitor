@@ -43,6 +43,8 @@ namespace AirMonitor.Client.Api
 
         public static AirlyClientFunction GetInstallationsNearest => new AirlyClientFunction(AirlyClientFunctionType.GetInstallationsNearest);
 
+        public static AirlyClientFunction GetMeasurementByInstallationId => new AirlyClientFunction(AirlyClientFunctionType.GetMeasurementByInstallationId);
+
         #endregion
 
         #region Type

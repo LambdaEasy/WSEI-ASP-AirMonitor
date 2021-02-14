@@ -74,9 +74,47 @@ namespace AirMonitor.Infrastructure.Service
             );
         }
 
-        public Either<MeasurementError, MeasurementDto> Update(MeasurementUpdateCommand command)
+        public ISet<MeasurementDto> GetAllOutdatedMeasurement()
         {
-            throw new System.NotImplementedException();
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.GetAllOutdatedMeasurements,
+                "none",
+                () => _repository.FindAllOutdated()
+                                 .Select(MeasurementDto.FromDomain)
+                                 .ToHashSet()
+            );
+        }
+        
+        public bool IsOutdatedByInstallationExternalId(long installationExternalId)
+        {
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.IsOutdatedByInstallationExternalId,
+                installationExternalId,
+                () => _repository.IsOutdatedByInstallationExternalId(installationExternalId)
+            );
+        }
+
+        public Either<MeasurementError, MeasurementDto> Update(MeasurementCreateCommand command)
+        {
+            return TracedOperation.CallSync
+            (
+                _logger,
+                MeasurementOperationType.UpdateMeasurement,
+                command,
+                // TODO refactor
+                () =>
+                {
+                    if (_repository.ExistsByExternalId(command.ExternalId))
+                    {
+                        _repository.DeleteByExternalId(command.ExternalId);
+                    }
+                    return Create(command);
+                }
+            );
         }
 
         public bool Delete(MeasurementDeleteCommand command)
@@ -96,6 +134,8 @@ namespace AirMonitor.Infrastructure.Service
         CreateMeasurement,
         GetIMeasurementById,
         GetAllMeasurements,
+        GetAllOutdatedMeasurements,
+        IsOutdatedByInstallationExternalId,
         UpdateMeasurement,
         DeleteMeasurement
     }
