@@ -18,9 +18,9 @@ namespace AirMonitor.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public RedirectToActionResult Index()
         {
-            return View();
+            return RedirectToAction(actionName: "Installation", controllerName: "Installation");
         }
 
         public IActionResult Privacy()

@@ -8,10 +8,13 @@
 
 @if (@Model.Installations.Count > 0)
 {
-    @foreach (var installation in Model.Installations)
-    {
-        @await Html.PartialAsync("Installation/InstallationSharedView", @installation)
-    }
+    <div class="list-group">
+        @foreach (var installation in Model.Installations)
+        {
+            @await Html.PartialAsync("Installation/InstallationSharedView", @installation)
+        }
+    </div>
+
 }
 else
 {

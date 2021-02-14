@@ -1,6 +1,7 @@
 using System;
 using AirMonitor.Core.Installation;
 using AirMonitor.Domain.Installation.Dto;
+using AirMonitor.Domain.Measurement.Dto;
 using AirMonitor.Util.Flow;
 
 namespace AirMonitor.Web.Models.Installation
@@ -27,6 +28,8 @@ namespace AirMonitor.Web.Models.Installation
 
         public string Sponsor
             => $"Founded by {Installation.Sponsor.Name}";
+
+        public MeasurementDto Measurement => Installation.Measurement;
 
         private InstallationViewModel(InstallationDto installation)
         {
