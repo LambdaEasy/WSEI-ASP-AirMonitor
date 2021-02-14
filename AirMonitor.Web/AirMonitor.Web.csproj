@@ -4,4 +4,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AirMonitor.Domain\AirMonitor.Domain.csproj" />
+      <ProjectReference Include="..\AirMonitor.Infrastructure\AirMonitor.Infrastructure.csproj" />
+      <ProjectReference Include="..\AirMonitor.Persistence\AirMonitor.Persistence.csproj" />
+    </ItemGroup>
+
 </Project>
