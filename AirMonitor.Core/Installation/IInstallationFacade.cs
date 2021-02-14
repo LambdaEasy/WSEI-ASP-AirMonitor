@@ -32,14 +32,14 @@ namespace AirMonitor.Core.Installation
         /// Returns all stored installations.
         /// </summary>
         /// <returns>Set of Installations</returns>
-        HashSet<InstallationDto> GetAll();
+        ISet<InstallationDto> GetAll();
         
         /// <summary>
         /// Returns all installations nearby given coordinates.
         /// </summary>
         /// <param name="command">Command containing all data necessary for search query.</param>
         /// <returns>Set of Installations</returns>
-        HashSet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command);
+        ISet<InstallationDto> GetAllNearby(InstallationGetAllNearbyCommand command);
         
         /// <summary>
         /// Updates stored Installation data and returns new updated Installation.

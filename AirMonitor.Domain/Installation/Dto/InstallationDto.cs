@@ -1,4 +1,5 @@
 ﻿using System;
+using AirMonitor.Domain.Measurement.Dto;
 
 namespace AirMonitor.Domain.Installation.Dto
 {
@@ -12,6 +13,8 @@ namespace AirMonitor.Domain.Installation.Dto
         public InstallationLocationDto Location => _location;
         public InstallationAddressDto Address => _address;
         public InstallationSponsorDto Sponsor => _sponsor;
+
+        public MeasurementDto Measurement { get; set; }
 
         private readonly long _id;
         private readonly long _externalId;
@@ -47,6 +50,12 @@ namespace AirMonitor.Domain.Installation.Dto
         }
         
         #endregion
+
+        public InstallationDto WithMeasurement(MeasurementDto measurement)
+        {
+            this.Measurement = measurement;
+            return this;
+        }
 
         #region Equals&HashCode
 

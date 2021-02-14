@@ -4,14 +4,16 @@ using AirMonitor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirMonitor.Persistence.Migrations
 {
     [DbContext(typeof(AirMonitorDbContext))]
-    partial class AirMonitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210212142755_AddMeasurementSchema")]
+    partial class AddMeasurementSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,9 +143,6 @@ namespace AirMonitor.Persistence.Migrations
 
                     b.Property<DateTimeOffset>("FromDateTime")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<long>("InstallationExternalId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTimeOffset>("TillDateTime")
                         .HasColumnType("datetimeoffset");

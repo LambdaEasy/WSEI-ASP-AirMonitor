@@ -1,3 +1,5 @@
+using AirMonitor.Core.Measurement;
+
 namespace AirMonitor.Core.Installation
 {
     public class InstallationError
@@ -9,7 +11,7 @@ namespace AirMonitor.Core.Installation
         private const string NotFoundMessagePattern = "Installation not found by {0} = {1}.";
         private const string DuplicateMessagePattern = "Installation already exists for {0} = {1}.";
         private const string ClientErrorMessagePattern = "Installation could not be loaded from external client, reason = {0}.";
-        
+        private const string MeasurementUpdateFailedMessagePatter = "Installation measurement could not be updated, code = {0}, reason = {1}";
 
         #endregion
 
@@ -18,8 +20,8 @@ namespace AirMonitor.Core.Installation
         public InstallationErrorCode Code => _code;
         public string Message => _message;
 
-        public readonly InstallationErrorCode _code;
-        public readonly string _message;
+        private readonly InstallationErrorCode _code;
+        private readonly string _message;
 
         #endregion
 
@@ -32,6 +34,9 @@ namespace AirMonitor.Core.Installation
         }
 
         #endregion
+
+        public override string ToString()
+            => $"{GetType().Name}(code={_code}, message={_message})";
 
         #region StaticConstructors
 
@@ -49,6 +54,10 @@ namespace AirMonitor.Core.Installation
 
         public static InstallationError ClientError(string clientErrorMessage)
             => new InstallationError(InstallationErrorCode.ClientError, string.Format(ClientErrorMessagePattern, clientErrorMessage));
+        
+        public static InstallationError MeasurementUpdateFailed(MeasurementError measurementError)
+            => new InstallationError(InstallationErrorCode.MeasurementUpdateFailed,
+                                     string.Format(MeasurementUpdateFailedMessagePatter, measurementError.Code, measurementError.Message));
 
         #endregion
     }
